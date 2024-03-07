@@ -1,0 +1,26 @@
+:root {
+  --background: linear-gradient(
+    to bottom,
+    rgb(241, 241, 244),
+    rgb(213, 219, 229)
+  );
+  --blue: rgb(51, 130, 248);
+  --danger: rgb(246, 53, 53);
+  --danger10: rgb(246, 53, 53, 0.1);
+  --darkBlue: rgb(15, 31, 117);
+  --lightBlue: rgb(153, 193, 252);
+  --lightGray: rgb(241, 241, 244);
+  --lightGray50: rgb(241, 241, 244, 0.5);
+  --line: rgb(237, 237, 237);
+  --pink: rgb(193, 144, 222);
+  --primary: rgb(6, 10, 15);
+  --primary15: rgb(6, 10, 15, 0.15);
+  --purple: rgb(145, 93, 211);
+  --purpleBlue: rgb(70, 91, 223);
+  --secondary: rgb(65, 80, 107);
+  --success: rgb(75, 208, 89);
+  --white: rgb(255, 255, 255);
+  --white10: rgb(255, 255, 255, 0.1);
+  --white30: rgb(255, 255, 255, 0.3);
+  --white75: rgb(255, 255, 255, 0.75);
+}
