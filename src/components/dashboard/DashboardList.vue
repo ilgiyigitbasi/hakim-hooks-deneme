@@ -1,10 +1,11 @@
 <template>
-  <div class="white-24px-div column-gap-32px-div">
+  <div class="white-24px-div column-gap-32px-div list">
     <div class="row-gap-space-between title-div">
       <p class="graph-title">Last 5 Reports</p>
 
       <div class="row-gap-16px-div">
         <ButtonComponent
+          @click="togglePopup"
           class="filters-button"
           :text="'Filters'"
           :width="'112px'"
@@ -49,19 +50,23 @@
         :backgroundColor="'#3382F8'"
       />
     </div>
+    <FilterVue :showPopup="showPopup" @closePopup="togglePopup" />
   </div>
 </template>
 
 <script>
 import DashboardListItem from "./DashboardListItem.vue";
 import ButtonComponent from "../ButtonComponent.vue";
+import FilterVue from "./Filter.vue";
 export default {
   components: {
     DashboardListItem,
     ButtonComponent,
+    FilterVue,
   },
   data() {
     return {
+      showPopup: false,
       titles: ["Request ID", "License Plate", "Date", "Detail"],
       listData: [
         {
@@ -96,10 +101,16 @@ export default {
     redirectToReports() {
       this.$router.push("/reports");
     },
+    togglePopup() {
+      this.showPopup = !this.showPopup;
+    },
   },
 };
 </script>
 
 <style scoped>
 @import "../../assets/css/styles.css";
+.list {
+  position: relative;
+}
 </style>
