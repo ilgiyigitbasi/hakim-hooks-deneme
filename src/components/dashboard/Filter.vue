@@ -32,13 +32,7 @@
           <div class="column-gap-8px-div">
             <p class="explanation-text">Date Range:</p>
             <div class="row-gap-24px-div">
-              <div class="control_wrapper"></div>
-              <InputComponent
-                style="width: 100%"
-                :height="'40px'"
-                :width="'100%'"
-                v-model="endDate"
-              />
+              <VueDatePicker v-model="date" :enable-time-picker="false" range />
             </div>
           </div>
           <div class="align-right-div profile-buttons-div">
@@ -50,6 +44,7 @@
                 :width="'100px'"
               />
               <ButtonComponent
+                @click="applyFilters"
                 :text="'Apply'"
                 :height="'40px'"
                 :width="'100px'"
@@ -67,7 +62,9 @@
 <script>
 import InputComponent from "../InputComponent.vue";
 import ButtonComponent from "../ButtonComponent.vue";
-
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+import { ref, onMounted } from "vue";
 export default {
   name: "PopupVue",
   props: {
@@ -76,6 +73,7 @@ export default {
   components: {
     InputComponent,
     ButtonComponent,
+    VueDatePicker,
   },
   data() {
     return {
@@ -89,6 +87,24 @@ export default {
     closePopup() {
       this.$emit("closePopup");
     },
+    applyFilters() {
+      console.log("Start Date:", this.date[0]);
+      console.log("End Date:", this.date[1]);
+      this.closePopup(); // Opsiyonel: Popup'ı kapatmak için
+    },
+  },
+  setup() {
+    const date = ref();
+
+    onMounted(() => {
+      const startDate = new Date();
+      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+      date.value = [startDate, endDate];
+    });
+
+    return {
+      date,
+    };
   },
 };
 </script>

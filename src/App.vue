@@ -5,10 +5,13 @@
   </div>
 </template>
 <script>
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 import Navbar from "./components/Navbar.vue";
 export default {
   components: {
     Navbar,
+    VueDatePicker,
   },
 };
 </script>
