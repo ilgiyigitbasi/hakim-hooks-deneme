@@ -1,7 +1,7 @@
 <template>
   <div v-if="showPopup" class="popup-div">
     <div class="popup">
-      <div class="white-24px-div column-gap-16px-div">
+      <div class="white-24px-div column-gap-24px-div">
         <div class="row-gap-space-between">
           <p class="graph-title">Filters</p>
           <div class="close-btn icon" @click="closePopup">
@@ -32,7 +32,30 @@
           <div class="column-gap-8px-div">
             <p class="explanation-text">Date Range:</p>
             <div class="row-gap-24px-div">
-              <VueDatePicker v-model="date" :enable-time-picker="false" range />
+              <VueDatePicker
+                v-model="date"
+                :enable-time-picker="false"
+                range
+                selectText="Uygula"
+                cancelText="Vazgeç"
+                locale="tr"
+                style="
+                  --dp-background-color: #f1f1f4;
+                  --dp-text-color: #41506b;
+                  --dp-primary-text-color: #060a0f;
+                  --dp-border-color: #f1f1f4;
+                  --dp-border-color-hover: #f1f1f4;
+                  --dp-font-family: 'Poppins', sans-serif;
+                  --dp-font-size: 13px;
+                  height: 40px;
+                  background-color: #f1f1f4;
+                  border-radius: 5px;
+                  padding-top: 4px;
+                  font-weight: 500;
+                  --dp-border-radius: 5px;
+                  --dp-action-buttons-padding: 16px;
+                "
+              />
             </div>
           </div>
           <div class="align-right-div profile-buttons-div">
