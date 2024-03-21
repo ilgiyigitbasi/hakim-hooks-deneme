@@ -24,12 +24,10 @@ export default {
     DashboardList,
   },
   mounted() {
-    // Otomatik olarak videoyu başlat
     this.$refs.videoPlayer.play();
   },
   methods: {
     restartVideo() {
-      // Video tamamlandığında başa dön ve oynat
       this.$refs.videoPlayer.currentTime = 0;
       this.$refs.videoPlayer.play();
     },
