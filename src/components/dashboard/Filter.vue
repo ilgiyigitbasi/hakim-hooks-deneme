@@ -96,7 +96,10 @@
       <div class="align-right-div">
         <p
           class="explanation-text info-text"
-          :style="{ backgroundColor: showInfoText ? '#060a0f' : '#ffffff' }"
+          :style="{
+            backgroundColor: showInfoText ? '#060a0f' : 'transparent',
+            color: showInfoText ? '#ffffff' : 'transparent',
+          }"
         >
           Lütfen 00AAA123 formatında girin.
         </p>
@@ -136,10 +139,17 @@ export default {
       this.$emit("closePopup");
     },
     applyFilters() {
-      this.startDate = this.date[0];
-      this.endDate = this.date[1];
-      console.log("Start Date:", this.startDate);
-      console.log("End Date:", this.endDate);
+      const startDate = this.date[0];
+      const formattedStartDate = startDate.toISOString().split("T")[0];
+
+      const endDate = this.date[1];
+      const formattedEndDate = endDate.toISOString().split("T")[0];
+
+      console.log("Start Date:", formattedStartDate);
+      console.log("End Date:", formattedEndDate);
+
+      this.startDate = formattedStartDate;
+      this.endDate = formattedEndDate;
       this.closePopup();
     },
     convertToUpperCase() {

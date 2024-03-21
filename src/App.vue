@@ -13,6 +13,11 @@ export default {
     Navbar,
     VueDatePicker,
   },
+  data() {
+    return {
+      isLogin: true,
+    };
+  },
 };
 </script>
 <style>
