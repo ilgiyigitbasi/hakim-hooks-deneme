@@ -29,7 +29,6 @@ export default {
   methods: {
     restartVideo() {
       this.$refs.videoPlayer.currentTime = 0;
-      this.$refs.videoPlayer.play();
     },
   },
 };
