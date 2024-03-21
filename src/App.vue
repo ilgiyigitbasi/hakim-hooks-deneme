@@ -1,22 +1,32 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" v-if="isLogin">
     <Navbar />
     <main><router-view /></main>
+  </div>
+  <div v-else>
+    <LoginView @loginSuccess="handleLoginSuccess" />
   </div>
 </template>
 <script>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import Navbar from "./components/Navbar.vue";
+import LoginView from "./views/auth/LoginView.vue";
 export default {
   components: {
     Navbar,
     VueDatePicker,
+    LoginView,
   },
   data() {
     return {
-      isLogin: true,
+      isLogin: false,
     };
+  },
+  methods: {
+    handleLoginSuccess() {
+      this.isLogin = true;
+    },
   },
 };
 </script>
@@ -30,7 +40,6 @@ body {
   font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
-  padding-bottom: 32px;
 }
 p {
   margin: 0;
@@ -41,6 +50,7 @@ p {
   padding-left: 100px;
   padding-right: 100px;
   width: 100%;
+  padding-bottom: 32px;
 }
 
 @media (max-width: 1000px) {

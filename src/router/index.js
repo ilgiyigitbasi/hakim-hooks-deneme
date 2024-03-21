@@ -3,12 +3,6 @@ import LoginView from "@/views/auth/LoginView.vue";
 
 const routes = [
   {
-    path: "/login",
-    name: "login",
-    component: LoginView,
-  },
-
-  {
     path: "/",
     name: "dashboard",
     component: () => import("../views/Dashboard.vue"),
