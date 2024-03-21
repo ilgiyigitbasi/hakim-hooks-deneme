@@ -9,18 +9,8 @@
     >
       <div class="row-gap-64px-div profile-inside-div">
         <p class="profile-label">{{ detail.label }}</p>
-        <template v-if="detail.type === 'text'">
-          <p class="profile-explanation-text">{{ detail.value }}</p>
-        </template>
-        <template v-else-if="detail.type === 'input'">
-          <InputComponent
-            class="email-input"
-            v-model="detail.value"
-            :height="'40px'"
-            :width="'100%'"
-            :place-holder="detail.placeholder"
-          />
-        </template>
+
+        <p class="profile-explanation-text">{{ detail.value }}</p>
       </div>
       <div class="line"></div>
     </div>
@@ -55,8 +45,8 @@ export default {
         { label: "Email", value: "sukranyorulmaz@skann.ai", type: "text" },
         {
           label: "Phone",
-          value: "",
-          placeholder: "0 (555) 555 55 55",
+          value: "0 (555) 555 55 55",
+
           type: "input",
         },
         { label: "User Type", value: "Admin", type: "text" },

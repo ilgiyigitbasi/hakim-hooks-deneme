@@ -1,17 +1,17 @@
 <template>
   <div class="web-list-item-div-dashboard">
     <div class="list-item-dashboard">
-      <p class="explanation-text-black">{{ listData.requestId }}</p>
+      <p class="explanation-text-black">{{ listData.id }}</p>
     </div>
 
     <div class="list-item-dashboard">
       <p class="explanation-text-black license-plate">
-        {{ listData.licensePlate }}
+        {{ listData.license_plate }}
       </p>
     </div>
 
     <div class="list-item-dashboard">
-      <p class="explanation-text">{{ listData.date }}</p>
+      <p class="explanation-text">{{ listData.datetime }}</p>
     </div>
 
     <div class="list-item-dashboard">
@@ -25,7 +25,7 @@
 
   <div class="mobile-list-item-div-dashboard">
     <div class="row-gap-space-between">
-      <p class="explanation-text">{{ listData.date }}</p>
+      <p class="explanation-text">{{ listData.datetime }}</p>
 
       <div class="detail-button">
         <img src="../../assets/img/gotodetail.svg" alt="" />
@@ -36,13 +36,13 @@
     <div class="column-gap-12px-div">
       <div class="row-gap-16px-div">
         <p class="explanation-text item-text">Request ID:</p>
-        <p class="explanation-text-black">{{ listData.requestId }}</p>
+        <p class="explanation-text-black">{{ listData.id }}</p>
       </div>
 
       <div class="row-gap-16px-div">
         <p class="explanation-text item-text">License Plate:</p>
         <p class="explanation-text-black license-plate">
-          {{ listData.licensePlate }}
+          {{ listData.license_plate }}
         </p>
       </div>
     </div>
