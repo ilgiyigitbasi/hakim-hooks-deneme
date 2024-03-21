@@ -14,11 +14,7 @@
         </div>
       </div>
 
-      <div
-        class="list-div"
-        v-for="(listDataItem, index) in listData"
-        :key="index"
-      >
+      <div class="list-div" v-for="(listDataItem, index) in items" :key="index">
         <div class="line"></div>
         <DashboardListItem :listData="listDataItem" />
       </div>
@@ -43,46 +39,42 @@ export default {
     return {
       todos: [],
       titles: ["Request ID", "License Plate", "Date", "Detail"],
-      listData: [
+      items: [
         {
-          requestId: "34647528601785680",
-          licensePlate: "34 ABC 01",
-          date: "05/02/2024 14:45",
+          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
+          id: "2",
+          image_count: "1",
+          license_plate: "34 ABC 01",
         },
         {
-          requestId: "34647528601785680",
-          licensePlate: "06 XYZ 42",
-          date: "05/02/2024 14:46",
+          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
+          id: "2",
+          image_count: "1",
+          license_plate: "34 ABC 01",
         },
         {
-          requestId: "34647528601785680",
-          licensePlate: "55 KLM 77",
-          date: "05/02/2024 14:47",
+          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
+          id: "2",
+          image_count: "1",
+          license_plate: "34 ABC 01",
         },
         {
-          requestId: "34647528601785680",
-          licensePlate: "12 DEF 98",
-          date: "05/02/2024 14:48",
+          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
+          id: "2",
+          image_count: "1",
+          license_plate: "34 ABC 01",
         },
         {
-          requestId: "34647528601785680",
-          licensePlate: "34 ABC 01",
-          date: "05/02/2024 14:45",
+          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
+          id: "2",
+          image_count: "1",
+          license_plate: "34 ABC 01",
         },
         {
-          requestId: "34647528601785680",
-          licensePlate: "06 XYZ 42",
-          date: "05/02/2024 14:46",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "55 KLM 77",
-          date: "05/02/2024 14:47",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "12 DEF 98",
-          date: "05/02/2024 14:48",
+          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
+          id: "2",
+          image_count: "1",
+          license_plate: "34 ABC 01",
         },
       ],
     };

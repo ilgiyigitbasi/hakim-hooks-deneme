@@ -2,18 +2,28 @@
   <div class="white-24px-div column-gap-16px-div">
     <p class="graph-title">User Details</p>
     <div class="line"></div>
-    <div
-      class="column-gap-16px-div"
-      v-for="(detail, index) in userDetails"
-      :key="index"
-    >
+    <div class="column-gap-16px-div">
       <div class="row-gap-64px-div profile-inside-div">
-        <p class="profile-label">{{ detail.label }}</p>
-
-        <p class="profile-explanation-text">{{ detail.value }}</p>
+        <p class="profile-label">Name Surname</p>
+        <p class="profile-explanation-text">{{ userDetails.name }}</p>
       </div>
       <div class="line"></div>
+      <div class="row-gap-64px-div profile-inside-div">
+        <p class="profile-label">Email</p>
+        <p class="profile-explanation-text">{{ userDetails.email }}</p>
+      </div>
+      <div class="line"></div>
+      <div class="row-gap-64px-div profile-inside-div">
+        <p class="profile-label">Phone</p>
+        <p class="profile-explanation-text">{{ userDetails.phone }}</p>
+      </div>
+      <div class="line"></div>
+      <div class="row-gap-64px-div profile-inside-div">
+        <p class="profile-label">User Type</p>
+        <p class="profile-explanation-text">{{ userDetails.id }}</p>
+      </div>
     </div>
+    <!--
     <div class="align-right-div profile-buttons-div">
       <div class="row-gap-16px-div">
         <ButtonComponent :text="'Cancel'" :height="'40px'" :width="'100px'" />
@@ -26,6 +36,7 @@
         />
       </div>
     </div>
+    -->
   </div>
 </template>
 
@@ -40,17 +51,12 @@ export default {
   },
   data() {
     return {
-      userDetails: [
-        { label: "Name Surname", value: "Şükran Yorulmaz", type: "text" },
-        { label: "Email", value: "sukranyorulmaz@skann.ai", type: "text" },
-        {
-          label: "Phone",
-          value: "0 (555) 555 55 55",
-
-          type: "input",
-        },
-        { label: "User Type", value: "Admin", type: "text" },
-      ],
+      userDetails: {
+        name: "Şükran Yorulmaz",
+        email: "sukran_yrlmz@hotmail.com",
+        phone: "0505 050 50 50",
+        id: "Admin",
+      },
     };
   },
 };
