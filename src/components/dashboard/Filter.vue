@@ -25,7 +25,13 @@
             src="../../assets/img/check.svg"
             class="icon"
           />
-          <img v-else src="../../assets/img/info.svg" class="info" />
+          <img
+            v-else
+            src="../../assets/img/info.svg"
+            class="info"
+            @mouseover="showInfoText = true"
+            @mouseleave="showInfoText = false"
+          />
         </div>
 
         <div class="column-gap-8px-div">
@@ -87,6 +93,14 @@
           </div>
         </div>
       </div>
+      <div class="align-right-div">
+        <p
+          class="explanation-text info-text"
+          :style="{ backgroundColor: showInfoText ? '#060a0f' : '#ffffff' }"
+        >
+          Lütfen 00AAA123 formatında girin.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -114,6 +128,7 @@ export default {
       startDate: "",
       endDate: "",
       platePattern: "^(0[1-9]|[1-7][0-9]|8[01])([A-Z]{3})(\\d{3})$",
+      showInfoText: false,
     };
   },
   methods: {
@@ -121,17 +136,19 @@ export default {
       this.$emit("closePopup");
     },
     applyFilters() {
-      console.log("Start Date:", this.date[0]);
-      console.log("End Date:", this.date[1]);
-      this.closePopup(); // Opsiyonel: Popup'ı kapatmak için
+      this.startDate = this.date[0];
+      this.endDate = this.date[1];
+      console.log("Start Date:", this.startDate);
+      console.log("End Date:", this.endDate);
+      this.closePopup();
     },
     convertToUpperCase() {
-      // Yeni metot
       this.licensePlate = this.licensePlate.toUpperCase();
     },
   },
   computed: {
     isValidPlate() {
+      this.showInfoText = false;
       return this.licensePlate.match(this.platePattern);
     },
   },
@@ -153,100 +170,4 @@ export default {
 
 <style scoped>
 @import "../../assets/css/styles.css";
-.popup-div {
-  width: 100%;
-
-  position: absolute;
-  display: flex;
-  justify-content: end;
-  box-sizing: border-box;
-  padding: 24px;
-  margin-top: 24px;
-}
-.popup {
-  width: 442px;
-  height: 100%;
-  border-radius: 8px;
-  background-size: contain;
-
-  display: flex;
-  flex-direction: column;
-  margin-right: 24px;
-  row-gap: 24px;
-  align-items: center;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
-  background-color: white;
-}
-.align-right-div {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-}
-.close-btn {
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-}
-.inside {
-  width: 90%;
-  height: 400px;
-  background-color: white;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 24px;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  padding: 24px;
-}
-.title {
-  font-size: 60px;
-  font-weight: 600;
-}
-.exp {
-  font-size: 16px;
-  font-weight: 500;
-}
-.input {
-  box-sizing: border-box;
-  width: 100%;
-  height: 40px;
-  border: none;
-  border-radius: 50px;
-  background-color: #f3f3f3;
-  padding: 16px;
-  font-style: italic;
-}
-.pop-up-btn {
-  padding: 16px 48px;
-  background-color: #ff487a;
-  border-radius: 50px;
-  font-weight: 500;
-  font-size: 20px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.pop-up-btn:hover {
-  opacity: 0.9;
-}
-.pop-up-btn:active {
-  opacity: 0.8;
-}
-.licensePlate {
-  position: relative;
-}
-.licensePlate img.icon,
-.info {
-  position: absolute;
-  bottom: -3px;
-  transform: translateY(-50%);
-  right: 8px;
-  width: 24px;
-}
-.info {
-  cursor: pointer;
-}
 </style>
