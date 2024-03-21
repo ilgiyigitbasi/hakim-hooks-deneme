@@ -10,7 +10,7 @@
         </div>
         <div class="line"></div>
 
-        <div class="column-gap-8px-div">
+        <div class="column-gap-8px-div licensePlate">
           <p class="explanation-text">License Plate:</p>
           <InputComponent
             :height="'40px'"
@@ -25,6 +25,7 @@
             src="../../assets/img/check.svg"
             class="icon"
           />
+          <img v-else src="../../assets/img/info.svg" class="info" />
         </div>
 
         <div class="column-gap-8px-div">
@@ -233,5 +234,19 @@ export default {
 }
 .pop-up-btn:active {
   opacity: 0.8;
+}
+.licensePlate {
+  position: relative;
+}
+.licensePlate img.icon,
+.info {
+  position: absolute;
+  bottom: -3px;
+  transform: translateY(-50%);
+  right: 8px;
+  width: 24px;
+}
+.info {
+  cursor: pointer;
 }
 </style>
