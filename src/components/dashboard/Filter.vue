@@ -16,6 +16,14 @@
             :height="'40px'"
             :width="'100%'"
             v-model="licensePlate"
+            :pattern="platePattern"
+            @input="convertToUpperCase"
+          />
+
+          <img
+            v-if="isValidPlate"
+            src="../../assets/img/check.svg"
+            class="icon"
           />
         </div>
 
@@ -104,6 +112,7 @@ export default {
       requestId: "",
       startDate: "",
       endDate: "",
+      platePattern: "^(0[1-9]|[1-7][0-9]|8[01])([A-Z]{3})(\\d{3})$",
     };
   },
   methods: {
@@ -114,6 +123,15 @@ export default {
       console.log("Start Date:", this.date[0]);
       console.log("End Date:", this.date[1]);
       this.closePopup(); // Opsiyonel: Popup'ı kapatmak için
+    },
+    convertToUpperCase() {
+      // Yeni metot
+      this.licensePlate = this.licensePlate.toUpperCase();
+    },
+  },
+  computed: {
+    isValidPlate() {
+      return this.licensePlate.match(this.platePattern);
     },
   },
   setup() {
