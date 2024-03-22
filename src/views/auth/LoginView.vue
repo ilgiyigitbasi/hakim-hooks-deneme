@@ -34,6 +34,7 @@
 
           <div v-show="errorMessage" class="row-gap-8px-div">
             <img style="width: 16px" src="../../assets/img/alert.png" alt="" />
+            <p class="explanation-text">{{ errorMessage }}</p>
           </div>
         </div>
 
@@ -61,6 +62,8 @@
 <script>
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import InputComponent from "@/components/InputComponent.vue";
+import { post } from "@/axios/api.js";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "LoginView",
@@ -68,9 +71,32 @@ export default {
     ButtonComponent,
     InputComponent,
   },
+  data() {
+    return {
+      email: "",
+      password: "",
+      errorMessage: "",
+    };
+  },
+  computed: {
+    ...mapGetters(["getToken"]),
+  },
   methods: {
-    login() {
-      this.$emit("loginSuccess");
+    ...mapActions(["setToken"]),
+    async login() {
+      try {
+        const response = await post("/auth/login", {
+          username: this.email, //"mor_2314",
+          password: this.password, //"83r5^_",
+        });
+        console.log(response.data);
+        this.setToken(response.data.token);
+        console.log("Token from Vuex:", this.getToken);
+        this.$emit("loginSuccess");
+      } catch (error) {
+        console.error("Login failed:", error);
+        this.errorMessage = "Login failed. Please try again.";
+      }
     },
   },
 };
