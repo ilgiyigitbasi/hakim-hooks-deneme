@@ -84,6 +84,11 @@ export default {
   methods: {
     ...mapActions(["setToken"]),
     async login() {
+      if (!this.email || !this.password) {
+        // E-posta veya şifre boşsa, işlem yapma
+        this.errorMessage = "Please enter both email and password.";
+        return;
+      }
       try {
         const response = await post("/auth/login", {
           username: this.email, //"mor_2314",

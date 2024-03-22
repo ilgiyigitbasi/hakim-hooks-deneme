@@ -11,7 +11,6 @@ const http = axios.create({
 
 // GET
 export const get = (url, params) => {
-  console.log("url:" + url);
   return http.get(BASE_URL + url, { params });
 };
 
