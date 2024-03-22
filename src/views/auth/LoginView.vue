@@ -99,7 +99,7 @@ export default {
         console.log("Token from Vuex:", this.getToken);
         this.$emit("loginSuccess");
       } catch (error) {
-        console.error("Login failed:", error);
+        console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
       }
     },
