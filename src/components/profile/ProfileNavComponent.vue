@@ -14,8 +14,12 @@
         </div>
       </div>
 
-      <div class="logout-button">
-        <img class="logout-icon" src="../../assets/img/logout.svg" alt="" />
+      <div class="logout">
+        <div @click="showLogoutBtn = !showLogoutBtn" class="logout-div">
+          <img style="width: 16px" src="../../assets/img/logout.svg" alt="" />
+        </div>
+
+        <div v-if="showLogoutBtn" class="logout-button">Log out</div>
       </div>
     </div>
 
@@ -45,10 +49,49 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      showLogoutBtn: false,
+    };
   },
 };
 </script>
 <style scoped>
 @import "../../assets/css/styles.css";
+.logout-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: rgb(6, 10, 15, 0.1);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.logout {
+  position: relative;
+}
+.logout-button {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 95px;
+  height: 40px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #41506b;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+.logout-button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.logout-button:active {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
 </style>
