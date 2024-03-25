@@ -85,14 +85,13 @@ export default {
     ...mapActions(["setToken"]),
     async login() {
       if (!this.email || !this.password) {
-        // E-posta veya şifre boşsa, işlem yapma
         this.errorMessage = "Please enter both email and password.";
         return;
       }
       try {
         const response = await post("/auth/login", {
-          username: this.email, //"mor_2314",
-          password: this.password, //"83r5^_",
+          username: "mor_2314", //this.email,
+          password: "83r5^_", //this.password,
         });
         console.log(response.data);
         this.setToken(response.data.token);

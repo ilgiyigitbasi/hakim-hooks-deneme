@@ -5,7 +5,7 @@
       <video
         class="video"
         ref="videoPlayer"
-        src="../assets/video/isaacvideo.mp4"
+        :src="videoSource"
         loop
         muted
         @ended="restartVideo"
@@ -18,18 +18,42 @@
 
 <script>
 import DashboardList from "@/components/dashboard/DashboardList.vue";
-
+// Video dosyalarını require kullanarak içe aktar
+const isaacvideo = require("@/assets/video/isaacvideo.mp4");
+const mobilvideo = require("@/assets/video/mobil.mp4");
 export default {
   components: {
     DashboardList,
   },
+
+  data() {
+    return {
+      isSmallScreen: window.innerWidth < 1000,
+    };
+  },
+
+  computed: {
+    videoSource() {
+      return this.isSmallScreen ? mobilvideo : isaacvideo;
+    },
+  },
+
   mounted() {
     this.$refs.videoPlayer.play();
+    window.addEventListener("resize", this.updateScreenSize);
   },
+
   methods: {
     restartVideo() {
       this.$refs.videoPlayer.currentTime = 0;
     },
+    updateScreenSize() {
+      this.isSmallScreen = window.innerWidth < 1000;
+    },
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateScreenSize);
   },
 };
 </script>
