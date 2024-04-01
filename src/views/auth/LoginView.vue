@@ -62,9 +62,8 @@
 <script>
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import InputComponent from "@/components/InputComponent.vue";
-import { post, get } from "@/axios/api.js";
 import { mapActions, mapGetters } from "vuex";
-
+import axios from "axios";
 export default {
   name: "LoginView",
   components: {
@@ -89,12 +88,20 @@ export default {
         return;
       }
       try {
-        const response = await get("/login", {
-          params: {
-            email: "avis@skann.com", //this.email,
-            password: "6nJ7vQ38W47t", //this.password,
-          },
-        });
+        const formData = new FormData();
+        formData.append("email", "avis@skann.com");
+        formData.append("password", "6nJ7vQ38W47t");
+
+        const response = await axios.post(
+          "http://104.197.168.64:8080/api/login",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
         console.log(response.data);
         this.setToken(response.data.token);
         console.log("Token from Vuex:", this.getToken);

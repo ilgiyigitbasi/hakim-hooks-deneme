@@ -11,12 +11,12 @@ const http = axios.create({
 
 // GET
 export const get = (url, params) => {
-  return http.get(BASE_URL + url, { params });
+  return http.get(url, { params });
 };
 
 // POST
 export const post = (url, data) => {
-  return http.post(BASE_URL + url, data);
+  return http.post(url, data);
 };
 
 // PUT
