@@ -16,7 +16,13 @@
       </div>
       <div class="grid-2-div" style="align-items: flex-start">
         <Images :imageData="imageData" />
-        <Details :detailsData="detailsData" />
+        <Details
+          :licensePlate="licensePlate"
+          :date="date"
+          :time="time"
+          :requestId="requestId"
+          :uploadedImages="uploadedImages"
+        />
       </div>
     </div>
   </div>
@@ -50,28 +56,11 @@ export default {
         },
       ],
 
-      detailsData: [
-        {
-          title: "License Plate",
-          exp: "06 DE 123",
-        },
-        {
-          title: "Date:",
-          exp: "07.02.2024",
-        },
-        {
-          title: "Time",
-          exp: "14:00",
-        },
-        {
-          title: "Request ID",
-          exp: "34759487594357",
-        },
-        {
-          title: "Uploaded Images",
-          exp: "4",
-        },
-      ],
+      licensePlate: "06 DE 123",
+      date: "Thu, 28 Mar 2024 17:42:08 GMT",
+      time: "17:42:08 GMT",
+      requestId: "12",
+      uploadedImages: "4",
     };
   },
   created() {

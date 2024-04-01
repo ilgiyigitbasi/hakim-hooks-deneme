@@ -2,11 +2,17 @@
   <div class="white-24px-div details-div">
     <div class="column-gap-24px-div">
       <p class="graph-title">Details</p>
-      <div v-for="(item, index) in detailsData" :key="index">
-        <div class="column-gap-16px-div">
-          <DetailItem :detailsData="item" />
-          <div v-if="index !== detailsData.length - 1" class="line"></div>
-        </div>
+
+      <div class="column-gap-16px-div">
+        <DetailItem :exp="licensePlate" :title="'License Plate:'" />
+        <div class="line"></div>
+        <DetailItem :exp="date" :title="'Date:'" />
+        <div class="line"></div>
+        <DetailItem :exp="time" :title="'Time:'" />
+        <div class="line"></div>
+        <DetailItem :exp="requestId" :title="'Request ID:'" />
+        <div class="line"></div>
+        <DetailItem :exp="uploadedImages" :title="'Uploaded Images:'" />
       </div>
     </div>
   </div>
@@ -16,10 +22,11 @@
 import DetailItem from "./DetailItem.vue";
 export default {
   props: {
-    detailsData: {
-      type: Array,
-      required: true,
-    },
+    licensePlate: String,
+    date: String,
+    time: String,
+    requestId: String,
+    uploadedImages: String,
   },
   components: {
     DetailItem,

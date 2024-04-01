@@ -1,18 +1,20 @@
 <template>
   <div class="row-gap-space-between">
-    <p class="explanation-text">{{ detailsData.title }}</p>
-    <div v-if="detailsData.exp === 'true'">
-      <img class="icon" src="../../../assets/img/check.svg" alt="" />
-    </div>
-    <p v-else class="explanation-text-black">{{ detailsData.exp }}</p>
+    <p class="explanation-text">{{ title }}</p>
+
+    <p class="explanation-text-black">{{ exp }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    detailsData: {
-      type: Object,
+    exp: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
       required: true,
     },
   },
