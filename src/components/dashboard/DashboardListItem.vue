@@ -15,10 +15,11 @@
     </div>
 
     <div class="list-item-dashboard">
-      <router-link :to="'/reportDetail'">
-        <div class="detail-button">
-          <img src="../../assets/img/gotodetail.svg" alt="" />
-        </div>
+      <router-link
+        :to="{ path: '/reportDetail', query: { id: listData.id } }"
+        class="detail-button"
+      >
+        <img src="../../assets/img/gotodetail.svg" alt="" />
       </router-link>
     </div>
   </div>
@@ -27,9 +28,12 @@
     <div class="row-gap-space-between">
       <p class="explanation-text">{{ listData.datetime }}</p>
 
-      <div class="detail-button">
+      <router-link
+        :to="{ path: '/reportDetail', query: { id: listData.id } }"
+        class="detail-button"
+      >
         <img src="../../assets/img/gotodetail.svg" alt="" />
-      </div>
+      </router-link>
     </div>
     <div class="line"></div>
 

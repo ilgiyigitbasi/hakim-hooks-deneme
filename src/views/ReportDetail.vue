@@ -74,6 +74,9 @@ export default {
       ],
     };
   },
+  created() {
+    console.log("Received ID:", this.$route.query.id);
+  },
 };
 </script>
 
