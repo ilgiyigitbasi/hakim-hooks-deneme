@@ -62,7 +62,7 @@
 <script>
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import InputComponent from "@/components/InputComponent.vue";
-import { post } from "@/axios/api.js";
+import { post, get } from "@/axios/api.js";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -89,9 +89,11 @@ export default {
         return;
       }
       try {
-        const response = await post("/auth/login", {
-          username: "mor_2314", //this.email,
-          password: "83r5^_", //this.password,
+        const response = await get("/login", {
+          params: {
+            email: "avis@skann.com", //this.email,
+            password: "6nJ7vQ38W47t", //this.password,
+          },
         });
         console.log(response.data);
         this.setToken(response.data.token);
