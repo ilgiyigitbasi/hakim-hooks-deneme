@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-if="isLogin">
+  <div class="wrapper" v-if="tripsSuccess !== null && tripsSuccess">
     <Navbar />
     <main><router-view /></main>
   </div>
@@ -19,15 +19,13 @@ export default {
     VueDatePicker,
     LoginView,
   },
-  data() {
-    return {
-      isLogin: true,
-    };
-  },
+
   created() {
     console.log(localStorage.getItem("token"));
   },
-
+  computed: {
+    ...mapGetters(["tripsSuccess"]), // tripsSuccess getter'ını kullanabilmek için ekliyoruz
+  },
   methods: {},
 };
 </script>

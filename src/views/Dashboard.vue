@@ -69,9 +69,15 @@ export default {
 
         console.log("response data" + response.data);
         this.items = response.data.items;
+        this.$store.dispatch("setTripsSuccess", true);
+        // Başarılı olduğunda başarılı olduğunu localStorage'a kaydet
+        localStorage.setItem("tripsRequestSuccess", true);
       } catch (error) {
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
+        this.$store.dispatch("setTripsSuccess", false);
+        // Başarısız olduğunda başarısız olduğunu localStorage'a kaydet
+        localStorage.setItem("tripsRequestSuccess", false);
       }
     },
   },

@@ -9,8 +9,8 @@
           />
         </div>
         <div class="column-gap-8px-div name-div">
-          <p class="graph-title">Şükran Yorulmaz</p>
-          <p class="explanation-text">sukranyorulmaz@skann.ai</p>
+          <p class="graph-title">{{ profileData.name }}</p>
+          <p class="explanation-text">{{ profileData.email }}</p>
         </div>
       </div>
 
@@ -46,6 +46,12 @@ export default {
   methods: {
     selectTitle(index) {
       this.$emit("titleClicked", index);
+    },
+  },
+  props: {
+    profileData: {
+      type: Object,
+      required: true,
     },
   },
   data() {
