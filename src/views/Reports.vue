@@ -27,6 +27,8 @@ import axios from "axios";
 import SearchComponent from "@/components/SearchComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import DashboardListItem from "@/components/dashboard/DashboardListItem.vue";
+import { mapGetters } from "vuex";
+
 export default {
   name: "Reports",
   components: {
@@ -39,61 +41,42 @@ export default {
     return {
       todos: [],
       titles: ["Request ID", "License Plate", "Date", "Detail"],
-      items: [
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-      ],
+      items: [],
     };
   },
+  computed: {
+    ...mapGetters(["getToken"]),
+  },
   methods: {
-    async fetchTodos() {
+    async getTrips() {
       try {
         const response = await axios.get(
-          "https://jsonplaceholder.typicode.com/todos"
-        ); // Örnek bir API çağrısı
-        this.todos = response.data;
-        console.log(this.todos);
+          " http://104.197.168.64:8080/api/trips",
+
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "X-Access-Token": this.getToken,
+            },
+          }
+        );
+
+        console.log("response data" + response.data);
+        this.items = response.data.items;
+        this.$store.dispatch("setTripsSuccess", true);
+
+        localStorage.setItem("tripsRequestSuccess", true);
       } catch (error) {
-        console.error("Error fetching todos:", error);
+        console.error("Login failed:", error.response.status);
+        this.errorMessage = "Login failed. Please try again.";
+        this.$store.dispatch("setTripsSuccess", false);
+
+        localStorage.setItem("tripsRequestSuccess", false);
       }
     },
   },
-  created() {
-    this.fetchTodos();
+  mounted() {
+    this.getTrips();
   },
 };
 </script>
