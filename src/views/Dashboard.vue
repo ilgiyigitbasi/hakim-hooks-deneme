@@ -11,14 +11,15 @@
         @ended="restartVideo"
       ></video>
 
-      <DashboardList />
+      <DashboardList :listData="items" />
     </div>
   </div>
 </template>
 
 <script>
 import DashboardList from "@/components/dashboard/DashboardList.vue";
-
+import { mapGetters } from "vuex";
+import axios from "axios";
 const isaacvideo = require("@/assets/video/isaacvideo.mp4");
 const mobilvideo = require("@/assets/video/mobil.mp4");
 export default {
@@ -29,10 +30,12 @@ export default {
   data() {
     return {
       isSmallScreen: window.innerWidth < 1000,
+      items: null,
     };
   },
 
   computed: {
+    ...mapGetters(["getToken"]),
     videoSource() {
       return this.isSmallScreen ? mobilvideo : isaacvideo;
     },
@@ -41,6 +44,7 @@ export default {
   mounted() {
     this.$refs.videoPlayer.play();
     window.addEventListener("resize", this.updateScreenSize);
+    this.getTrips();
   },
 
   methods: {
@@ -49,6 +53,26 @@ export default {
     },
     updateScreenSize() {
       this.isSmallScreen = window.innerWidth < 1000;
+    },
+    async getTrips() {
+      try {
+        const response = await axios.get(
+          " http://104.197.168.64:8080/api/trips",
+
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "X-Access-Token": this.getToken,
+            },
+          }
+        );
+
+        console.log("response data" + response.data);
+        this.items = response.data.items;
+      } catch (error) {
+        console.error("Login failed:", error.response.status);
+        this.errorMessage = "Login failed. Please try again.";
+      }
     },
   },
 

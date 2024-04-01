@@ -1,17 +1,12 @@
 const state = {
-  isLogin: false,
-  token: null,
+  token: localStorage.getItem("token") || null,
 };
 
 const getters = {
-  isUserLoggedIn: (state) => state.isLogin,
   getToken: (state) => state.token,
 };
 
 const mutations = {
-  SET_LOGIN_STATE(state, isLoggedIn) {
-    state.isLogin = isLoggedIn;
-  },
   SET_TOKEN(state, token) {
     state.token = token;
   },

@@ -105,6 +105,7 @@ export default {
         console.log(response.data);
         this.setToken(response.data.token);
         console.log("Token from Vuex:", this.getToken);
+        localStorage.setItem("token", this.getToken);
         this.$emit("loginSuccess");
       } catch (error) {
         console.error("Login failed:", error.response.status);

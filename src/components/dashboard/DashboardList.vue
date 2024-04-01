@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="list-div" v-for="(item, index) in items" :key="index">
+      <div class="list-div" v-for="(item, index) in listData" :key="index">
         <div class="line"></div>
         <DashboardListItem :listData="item" />
       </div>
@@ -60,48 +60,16 @@ export default {
     ButtonComponent,
     FilterVue,
   },
+  props: {
+    listData: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data() {
     return {
       showPopup: false,
       titles: ["Request ID", "License Plate", "Date", "Detail"],
-      items: [
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-        {
-          datetime: "Mon, 18 Mar 2024 12:57:58 GMT",
-          id: "2",
-          image_count: "1",
-          license_plate: "34 ABC 01",
-        },
-      ],
     };
   },
   methods: {

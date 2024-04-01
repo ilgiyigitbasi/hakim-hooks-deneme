@@ -4,7 +4,7 @@
     <main><router-view /></main>
   </div>
   <div v-else>
-    <LoginView @loginSuccess="handleLoginSuccess" />
+    <LoginView />
   </div>
 </template>
 <script>
@@ -20,20 +20,15 @@ export default {
     LoginView,
   },
   data() {
-    return {};
+    return {
+      isLogin: true,
+    };
   },
-  computed: {
-    ...mapGetters(["isUserLoggedIn"]),
-    isLogin() {
-      return this.isUserLoggedIn;
-    },
+  created() {
+    console.log(localStorage.getItem("token"));
   },
-  methods: {
-    ...mapActions(["setLoginState"]),
-    handleLoginSuccess() {
-      this.setLoginState(true);
-    },
-  },
+
+  methods: {},
 };
 </script>
 <style>
