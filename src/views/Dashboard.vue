@@ -6,15 +6,7 @@
     <h1 class="h1">Dashboard</h1>
     <div class="column-gap-32px-div">
       <img class="video" :src="videoSource" alt="" />
-      <!-- <video
-        class="video"
-        ref="videoPlayer"
-        :src="videoSource"
-        loop
-        muted
-        @ended="restartVideo"
-      ></video>
--->
+
       <DashboardList :listData="items" />
     </div>
   </div>
@@ -49,15 +41,12 @@ export default {
   },
 
   mounted() {
-    // this.$refs.videoPlayer.play();
     window.addEventListener("resize", this.updateScreenSize);
     this.getTrips();
   },
 
   methods: {
-    restartVideo() {
-      // this.$refs.videoPlayer.currentTime = 0;
-    },
+    restartVideo() {},
     updateScreenSize() {
       this.isSmallScreen = window.innerWidth < 1000;
     },
@@ -77,13 +66,13 @@ export default {
 
         console.log("response data" + response.data);
         this.items = response.data.items;
-        // Başarılı olduğunda tripsSuccess'i true olarak ayarla
+
         this.$emit("trips-success", true);
         this.isLoading = false;
       } catch (error) {
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
-        // Başarısız olduğunda tripsSuccess'i false olarak ayarla
+
         this.$emit("trips-success", false);
         this.isLoading = false;
       }

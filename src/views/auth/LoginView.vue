@@ -106,12 +106,12 @@ export default {
         this.setToken(response.data.token);
         console.log("Token from Vuex:", this.getToken);
         localStorage.setItem("token", this.getToken);
-        // Başarılı olduğunda tripsSuccess'i true olarak ayarla
+
         this.$emit("trips-success", true);
       } catch (error) {
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
-        // Başarılı olduğunda tripsSuccess'i true olarak ayarla
+
         this.$emit("trips-success", true);
       }
     },
