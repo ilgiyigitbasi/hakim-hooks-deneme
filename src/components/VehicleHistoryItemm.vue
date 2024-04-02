@@ -15,9 +15,12 @@
     </div>
 
     <div class="list-item-dashboard">
-      <div class="detail-button">
+      <router-link
+        :to="{ path: '/reportDetail', query: { id: listData.id } }"
+        class="detail-button"
+      >
         <img src="../assets/img/gotodetail.svg" alt="" />
-      </div>
+      </router-link>
     </div>
   </div>
 
@@ -26,7 +29,12 @@
       <p class="explanation-text">{{ listData.date }}</p>
 
       <div class="detail-button">
-        <img src="../assets/img/gotodetail.svg" alt="" />
+        <router-link
+          :to="{ path: '/reportDetail', query: { id: listData.id } }"
+          class="detail-button"
+        >
+          <img src="../assets/img/gotodetail.svg" alt="" />
+        </router-link>
       </div>
     </div>
     <div class="line"></div>
