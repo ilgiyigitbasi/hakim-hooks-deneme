@@ -3,12 +3,10 @@
     <div class="column-gap-24px-div">
       <p class="graph-title">Details</p>
 
-      <div class="column-gap-16px-div">
+      <div class="column-gap-24px-div">
         <DetailItem :exp="licensePlate" :title="'License Plate:'" />
         <div class="line"></div>
-        <DetailItem :exp="date" :title="'Date:'" />
-        <div class="line"></div>
-        <DetailItem :exp="time" :title="'Time:'" />
+        <DetailItem :exp="date" :title="'Date - Time:'" />
         <div class="line"></div>
         <DetailItem :exp="requestId" :title="'Request ID:'" />
         <div class="line"></div>
@@ -24,7 +22,6 @@ export default {
   props: {
     licensePlate: String,
     date: String,
-    time: String,
     requestId: String,
     uploadedImages: String,
   },

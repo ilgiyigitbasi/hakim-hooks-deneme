@@ -25,7 +25,6 @@
         <Details
           :licensePlate="licensePlate"
           :date="date"
-          :time="time"
           :requestId="requestId"
           :uploadedImages="uploadedImages"
         />
@@ -54,7 +53,6 @@ export default {
       imageData: null,
       licensePlate: "",
       date: "",
-      time: "",
       requestId: "",
       uploadedImages: "",
     };
@@ -75,7 +73,6 @@ export default {
         console.log("response data" + response.data);
         this.licensePlate = response.data.license;
         this.date = response.data.date;
-        this.time = response.data.date;
         this.requestId = response.data.id;
         this.uploadedImages = response.data.image_count;
         if (response.data.images) {
