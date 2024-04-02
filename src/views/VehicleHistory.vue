@@ -43,6 +43,36 @@
           <div class="line"></div>
           <VehicleHistoryItem :listData="listDataItem" />
         </div>
+        <div class="align-center-div">
+          <div class="pagination-div">
+            <button
+              class="pagination-button"
+              @click="prevPage"
+              :disabled="currentPage === 1"
+            >
+              Prev
+            </button>
+
+            <span class="other-button" v-if="currentPage > 1">
+              <p @click="goToPage(currentPage - 1)">
+                {{ currentPage - 1 }}
+              </p>
+            </span>
+            <span class="current-button">{{ currentPage }}</span>
+            <span class="other-button" v-if="currentPage < totalPages">
+              <p @click="goToPage(currentPage + 1)">
+                {{ currentPage + 1 }}
+              </p>
+            </span>
+            <button
+              class="pagination-button"
+              @click="nextPage"
+              :disabled="currentPage === totalPages"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -72,6 +102,8 @@ export default {
       licensePlate: "",
       totalTrip: "",
       isLoading: false,
+      currentPage: 1,
+      totalPages: 0,
     };
   },
   computed: {
@@ -81,12 +113,14 @@ export default {
     this.getReportDetail();
   },
   methods: {
-    async getReportDetail() {
+    async getReportDetail(page) {
       try {
         this.isLoading = true;
         const response = await axios.get(
           "http://104.197.168.64:8080/api/trips?limit=10&license_plate=" +
-            this.licensePlate,
+            this.licensePlate +
+            "&page=${page}" +
+            page,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -97,6 +131,7 @@ export default {
         console.log("response data" + response.data);
         this.listData = response.data.items;
         this.totalTrip = response.data.total;
+        this.totalPages = response.data.pages;
         this.isLoading = false;
       } catch (error) {
         if (error.response && error.response.status) {
@@ -107,6 +142,22 @@ export default {
         this.errorMessage = "An error occurred. Please try again.";
         this.isLoading = false;
       }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.getReportDetail(this.currentPage);
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.getReportDetail(this.currentPage);
+      }
+    },
+    goToPage(page) {
+      this.currentPage = page;
+      this.getReportDetail(this.currentPage);
     },
   },
   created() {
