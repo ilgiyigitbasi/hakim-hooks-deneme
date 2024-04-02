@@ -18,6 +18,18 @@
         <div class="line"></div>
         <DashboardListItem :listData="listDataItem" />
       </div>
+
+      <div class="align-center-div">
+        <div class="pagination-div">
+          <button @click="prevPage" :disabled="currentPage === 1">
+            Previous
+          </button>
+          <span>{{ currentPage }}</span>
+          <button @click="nextPage" :disabled="currentPage === totalPages">
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -42,17 +54,18 @@ export default {
       todos: [],
       titles: ["Request ID", "License Plate", "Date", "Detail"],
       items: [],
+      currentPage: 1,
+      totalPages: 0,
     };
   },
   computed: {
     ...mapGetters(["getToken"]),
   },
   methods: {
-    async getTrips() {
+    async getTrips(page) {
       try {
         const response = await axios.get(
-          " http://104.197.168.64:8080/api/trips",
-
+          `http://104.197.168.64:8080/api/trips?page=${page}`,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -61,26 +74,42 @@ export default {
           }
         );
 
-        console.log("response data" + response.data);
         this.items = response.data.items;
-        this.$store.dispatch("setTripsSuccess", true);
-
-        localStorage.setItem("tripsRequestSuccess", true);
+        this.totalPages = response.data.pages;
       } catch (error) {
-        console.error("Login failed:", error.response.status);
-        this.errorMessage = "Login failed. Please try again.";
-        this.$store.dispatch("setTripsSuccess", false);
-
-        localStorage.setItem("tripsRequestSuccess", false);
+        console.error("Error fetching trips:", error);
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        this.getTrips(this.currentPage);
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        this.getTrips(this.currentPage);
       }
     },
   },
   mounted() {
-    this.getTrips();
+    this.getTrips(this.currentPage);
   },
 };
 </script>
-
 <style scoped>
 @import "../assets/css/styles.css";
+.pagination-div {
+  display: flex;
+  flex-direction: row;
+  column-gap: 24px;
+}
+.align-center-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+}
 </style>
