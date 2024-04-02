@@ -3,10 +3,7 @@
     <div class="row-gap-space-between profile-top-div">
       <div class="row-gap-24px-div profile-image-text-div">
         <div class="profile-image-div">
-          <img
-            class="profile-image"
-            src="../../assets/img/profile-image.jpeg"
-          />
+          <img class="profile-image" src="../../assets/img/profile.svg" />
         </div>
         <div class="column-gap-8px-div name-div">
           <p class="graph-title">{{ profileData.name }}</p>

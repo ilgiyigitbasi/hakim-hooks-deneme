@@ -37,7 +37,7 @@
 
       <router-link to="/profile">
         <div v-if="screenWidth > 1000 || activeLink !== 'profile'">
-          <img class="profile" src="../assets/img/profile-image.jpeg" alt="" />
+          <img class="profile" src="../assets/img/profile.svg" alt="" />
         </div>
         <div v-else class="empty"></div>
       </router-link>

@@ -1,5 +1,8 @@
 <template>
-  <div class="home-wrapper">
+  <div v-if="isLoading">
+    <Loader />
+  </div>
+  <div v-else class="home-wrapper">
     <h1 class="h1">Reports</h1>
 
     <div class="white-24px-div list-div">
@@ -21,11 +24,30 @@
 
       <div class="align-center-div">
         <div class="pagination-div">
-          <button @click="prevPage" :disabled="currentPage === 1">
-            Previous
+          <button
+            class="pagination-button"
+            @click="prevPage"
+            :disabled="currentPage === 1"
+          >
+            Prev
           </button>
-          <span>{{ currentPage }}</span>
-          <button @click="nextPage" :disabled="currentPage === totalPages">
+
+          <span class="other-button" v-if="currentPage > 1">
+            <p @click="goToPage(currentPage - 1)">
+              {{ currentPage - 1 }}
+            </p>
+          </span>
+          <span class="current-button">{{ currentPage }}</span>
+          <span class="other-button" v-if="currentPage < totalPages">
+            <p @click="goToPage(currentPage + 1)">
+              {{ currentPage + 1 }}
+            </p>
+          </span>
+          <button
+            class="pagination-button"
+            @click="nextPage"
+            :disabled="currentPage === totalPages"
+          >
             Next
           </button>
         </div>
@@ -39,6 +61,7 @@ import axios from "axios";
 import SearchComponent from "@/components/SearchComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import DashboardListItem from "@/components/dashboard/DashboardListItem.vue";
+import Loader from "@/components/Loader.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -47,6 +70,7 @@ export default {
     SearchComponent,
     ButtonComponent,
     DashboardListItem,
+    Loader,
   },
 
   data() {
@@ -56,6 +80,7 @@ export default {
       items: [],
       currentPage: 1,
       totalPages: 0,
+      isLoading: false,
     };
   },
   computed: {
@@ -63,6 +88,7 @@ export default {
   },
   methods: {
     async getTrips(page) {
+      this.isLoading = true;
       try {
         const response = await axios.get(
           `http://104.197.168.64:8080/api/trips?page=${page}`,
@@ -76,8 +102,10 @@ export default {
 
         this.items = response.data.items;
         this.totalPages = response.data.pages;
+        this.isLoading = false;
       } catch (error) {
         console.error("Error fetching trips:", error);
+        this.isLoading = false;
       }
     },
     nextPage() {
@@ -92,6 +120,10 @@ export default {
         this.getTrips(this.currentPage);
       }
     },
+    goToPage(page) {
+      this.currentPage = page;
+      this.getTrips(this.currentPage);
+    },
   },
   mounted() {
     this.getTrips(this.currentPage);
@@ -104,6 +136,7 @@ export default {
   display: flex;
   flex-direction: row;
   column-gap: 24px;
+  align-items: center;
 }
 .align-center-div {
   width: 100%;
@@ -111,5 +144,40 @@ export default {
   align-items: center;
   justify-content: center;
   margin-top: 32px;
+}
+.pagination-button {
+  background-color: #ffffff;
+
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.current-button {
+  background-color: #3382f8;
+  color: #ffffff;
+  border-radius: 50px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+}
+.other-button {
+  background-color: #ffffff;
+  color: #060a0f;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
 }
 </style>

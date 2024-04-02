@@ -1,9 +1,4 @@
 :root {
-  --background: linear-gradient(
-    to bottom,
-    rgb(241, 241, 244),
-    rgb(213, 219, 229)
-  );
   --blue: rgb(51, 130, 248);
   --danger: rgb(246, 53, 53);
   --danger10: rgb(246, 53, 53, 0.1);

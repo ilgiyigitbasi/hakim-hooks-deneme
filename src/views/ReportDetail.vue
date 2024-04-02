@@ -1,5 +1,8 @@
 <template>
-  <div class="home-wrapper">
+  <div v-if="isLoading">
+    <Loader />
+  </div>
+  <div v-else class="home-wrapper">
     <div class="column-gap-32px-div">
       <div class="row-gap-space-between">
         <h1 class="h1">Report Detail</h1>
@@ -35,6 +38,7 @@
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import Images from "@/components/reportDetail/Images.vue";
 import Details from "@/components/reportDetail/details/Details.vue";
+import Loader from "@/components/Loader.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
 export default {
@@ -42,9 +46,11 @@ export default {
     ButtonComponent,
     Images,
     Details,
+    Loader,
   },
   data() {
     return {
+      isLoading: false,
       imageData: null,
       licensePlate: "",
       date: "",
@@ -56,6 +62,7 @@ export default {
   methods: {
     async getReportDetail() {
       try {
+        this.isLoading = true;
         const response = await axios.get(
           "http://104.197.168.64:8080/api/trips/" + this.requestId,
           {
@@ -78,6 +85,7 @@ export default {
           console.log("No images data received from the server.");
         }
         console.log("image datas:" + this.imageData);
+        this.isLoading = false;
       } catch (error) {
         if (error.response && error.response.status) {
           console.error("Login failed:", error.response.status);
@@ -85,6 +93,7 @@ export default {
           console.error("An error occurred:", error.message);
         }
         this.errorMessage = "An error occurred. Please try again.";
+        this.isLoading = false;
       }
     },
   },
