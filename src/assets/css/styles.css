@@ -1216,7 +1216,7 @@ input::placeholder {
   width: 100%;
 }
 .report-images {
-  width: 100%;
+  width: 120px;
   height: 120px;
   border-radius: 6px;
   object-position: center;
@@ -1346,11 +1346,12 @@ input::placeholder {
 .report-images-div {
   overflow-x: auto;
   overflow-y: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: row;
   column-gap: 24px;
   box-sizing: border-box;
   height: 120px;
+  width: 600px;
 }
 .details-div {
   height: 360px;
@@ -1491,8 +1492,9 @@ input::placeholder {
   }
   .report-images-div {
     overflow-x: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+    width: 400px;
   }
   .horizontal-data-image {
     width: 24px;
@@ -1502,7 +1504,7 @@ input::placeholder {
     height: auto;
   }
   .report-images {
-    width: 100%;
+    width: 120px;
     height: 80px;
     border-radius: 6px;
     object-position: center;

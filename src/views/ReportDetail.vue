@@ -15,7 +15,10 @@
         </router-link>
       </div>
       <div class="grid-2-div" style="align-items: flex-start">
-        <Images :imageData="imageData" />
+        <div v-if="imageData !== null">
+          <Images :imageData="imageData" />
+        </div>
+
         <Details
           :licensePlate="licensePlate"
           :date="date"
@@ -42,21 +45,7 @@ export default {
   },
   data() {
     return {
-      imageData: [
-        {
-          src: "https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?cs=srgb&dl=pexels-pixabay-210019.jpg&fm=jpg",
-        },
-        {
-          src: "https://st.depositphotos.com/27201292/52202/i/450/depositphotos_522022318-stock-photo-vertical-shot-modern-red-cars.jpg",
-        },
-        {
-          src: "https://st2.depositphotos.com/5899036/12206/i/450/depositphotos_122066108-stock-photo-alfa-romeo-4c-spider-on.jpg",
-        },
-        {
-          src: "https://static.carfromjapan.com/car_bd6462a4-deb8-4aeb-bb8d-a53953ca97ba_640_0",
-        },
-      ],
-
+      imageData: null,
       licensePlate: "",
       date: "",
       time: "",
@@ -68,7 +57,7 @@ export default {
     async getReportDetail() {
       try {
         const response = await axios.get(
-          "http://104.197.168.64:8080/api/my-info/" + this.requestId,
+          "http://104.197.168.64:8080/api/trips/" + this.requestId,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -79,11 +68,23 @@ export default {
         console.log("response data" + response.data);
         this.licensePlate = response.data.license;
         this.date = response.data.date;
+        this.time = response.data.date;
         this.requestId = response.data.id;
         this.uploadedImages = response.data.image_count;
+        if (response.data.images) {
+          this.imageData = response.data.images;
+          console.log("image datas:", this.imageData);
+        } else {
+          console.log("No images data received from the server.");
+        }
+        console.log("image datas:" + this.imageData);
       } catch (error) {
-        console.error("Login failed:", error.response.status);
-        this.errorMessage = "Login failed. Please try again.";
+        if (error.response && error.response.status) {
+          console.error("Login failed:", error.response.status);
+        } else {
+          console.error("An error occurred:", error.message);
+        }
+        this.errorMessage = "An error occurred. Please try again.";
       }
     },
   },
@@ -95,6 +96,8 @@ export default {
   },
   created() {
     console.log("Received ID:", this.$route.query.id);
+    this.requestId = this.$route.query.id;
+    this.getReportDetail();
   },
 };
 </script>
