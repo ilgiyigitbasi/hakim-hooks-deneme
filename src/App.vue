@@ -1,10 +1,10 @@
 <template>
-  <div class="wrapper" v-if="tripsSuccess !== null && tripsSuccess">
+  <div class="wrapper" v-if="tripsSuccess">
     <Navbar />
     <main><router-view /></main>
   </div>
   <div v-else>
-    <LoginView />
+    <LoginView @trips-success="updateTripsSuccess" />
   </div>
 </template>
 <script>
@@ -19,14 +19,22 @@ export default {
     VueDatePicker,
     LoginView,
   },
-
+  data() {
+    return {
+      tripsSuccess: JSON.parse(localStorage.getItem("tripsSuccess")) || null,
+    };
+  },
   created() {
     console.log(localStorage.getItem("token"));
+    console.log(this.tripsSuccess);
   },
-  computed: {
-    ...mapGetters(["tripsSuccess"]), // tripsSuccess getter'ını kullanabilmek için ekliyoruz
+  computed: {},
+  methods: {
+    updateTripsSuccess(success) {
+      this.tripsSuccess = success;
+      localStorage.setItem("tripsSuccess", JSON.stringify(success));
+    },
   },
-  methods: {},
 };
 </script>
 <style>

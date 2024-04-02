@@ -1,22 +1,17 @@
 const state = {
-  tripsSuccess: localStorage.getItem("tripsRequestSuccess") || null,
+  // Report detail için state
 };
 
 const getters = {
-  tripsSuccess: (state) => state.tripsSuccess,
+  // Report detail için getters
 };
 
 const mutations = {
-  SET_TRIPS_SUCCESS(state, success) {
-    state.tripsSuccess = success;
-  },
+  // Report detail için mutations
 };
 
 const actions = {
-  setTripsSuccess({ commit }, success) {
-    commit("SET_TRIPS_SUCCESS", success);
-    console.log("Trips Success:", success);
-  },
+  // Report detail için actions
 };
 
 export default {

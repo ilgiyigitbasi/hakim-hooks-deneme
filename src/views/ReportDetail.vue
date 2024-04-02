@@ -32,7 +32,8 @@
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import Images from "@/components/reportDetail/Images.vue";
 import Details from "@/components/reportDetail/details/Details.vue";
-
+import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
   components: {
     ButtonComponent,
@@ -56,12 +57,41 @@ export default {
         },
       ],
 
-      licensePlate: "06 DE 123",
-      date: "Thu, 28 Mar 2024 17:42:08 GMT",
-      time: "17:42:08 GMT",
-      requestId: "12",
-      uploadedImages: "4",
+      licensePlate: "",
+      date: "",
+      time: "",
+      requestId: "",
+      uploadedImages: "",
     };
+  },
+  methods: {
+    async getReportDetail() {
+      try {
+        const response = await axios.get(
+          "http://104.197.168.64:8080/api/my-info/" + this.requestId,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "X-Access-Token": this.getToken,
+            },
+          }
+        );
+        console.log("response data" + response.data);
+        this.licensePlate = response.data.license;
+        this.date = response.data.date;
+        this.requestId = response.data.id;
+        this.uploadedImages = response.data.image_count;
+      } catch (error) {
+        console.error("Login failed:", error.response.status);
+        this.errorMessage = "Login failed. Please try again.";
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(["getToken"]),
+  },
+  mounted() {
+    this.getReportDetail();
   },
   created() {
     console.log("Received ID:", this.$route.query.id);

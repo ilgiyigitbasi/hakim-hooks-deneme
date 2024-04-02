@@ -69,15 +69,13 @@ export default {
 
         console.log("response data" + response.data);
         this.items = response.data.items;
-        this.$store.dispatch("setTripsSuccess", true);
-
-        localStorage.setItem("tripsRequestSuccess", true);
+        // Başarılı olduğunda tripsSuccess'i true olarak ayarla
+        this.$emit("trips-success", true);
       } catch (error) {
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
-        this.$store.dispatch("setTripsSuccess", false);
-
-        localStorage.setItem("tripsRequestSuccess", false);
+        // Başarısız olduğunda tripsSuccess'i false olarak ayarla
+        this.$emit("trips-success", false);
       }
     },
   },
