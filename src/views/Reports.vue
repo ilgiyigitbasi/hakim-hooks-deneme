@@ -8,7 +8,12 @@
     <div class="white-24px-div list-div">
       <div class="row-gap-16px-div">
         <SearchComponent />
-        <ButtonComponent :text="'Filters'" :width="'100px'" :height="'45px'" />
+        <ButtonComponent
+          @click="togglePopup"
+          :text="'Filters'"
+          :width="'100px'"
+          :height="'45px'"
+        />
       </div>
 
       <div class="list-title-div">
@@ -22,6 +27,12 @@
         <DashboardListItem :listData="listDataItem" />
       </div>
 
+      <Filter
+        class="filter"
+        :showPopup="showPopup"
+        @closePopup="togglePopup"
+        @filterApplied="handleFilterApplied"
+      />
       <div class="align-center-div">
         <div class="pagination-div">
           <button
@@ -61,6 +72,7 @@ import axios from "axios";
 import SearchComponent from "@/components/SearchComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import DashboardListItem from "@/components/dashboard/DashboardListItem.vue";
+import Filter from "@/components/dashboard/Filter.vue";
 import Loader from "@/components/Loader.vue";
 import { mapGetters } from "vuex";
 
@@ -71,16 +83,20 @@ export default {
     ButtonComponent,
     DashboardListItem,
     Loader,
+    Filter,
   },
 
   data() {
     return {
+      showPopup: false,
       todos: [],
       titles: ["Request ID", "License Plate", "Date", "Detail"],
       items: [],
       currentPage: 1,
       totalPages: 0,
       isLoading: false,
+      start_date: localStorage.getItem("startDate") || null,
+      end_date: localStorage.getItem("endDate") || null,
     };
   },
   computed: {
@@ -108,21 +124,75 @@ export default {
         this.isLoading = false;
       }
     },
+    async getMain(page) {
+      if (this.start_date && this.end_date) {
+        this.getTripsFiltered(page);
+      } else {
+        this.getTrips(page);
+      }
+    },
+    async getTripsFiltered(page) {
+      this.isLoading = true;
+      try {
+        const response = await axios.get(
+          " http://104.197.168.64:8080/api/trips?page= " +
+            page +
+            "&start_date=" +
+            this.start_date +
+            " 00:00" +
+            "&end_date=" +
+            this.end_date +
+            " 23:59",
+
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "X-Access-Token": this.getToken,
+            },
+          }
+        );
+
+        console.log("response data" + response.data);
+        this.items = response.data.items;
+        this.totalPages = response.data.pages;
+        this.$emit("trips-success", true);
+        this.isLoading = false;
+      } catch (error) {
+        console.error("Login failed:", error.response.status);
+        this.errorMessage = "Login failed. Please try again.";
+
+        this.$emit("trips-success", false);
+        this.isLoading = false;
+      }
+    },
+
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
-        this.getTrips(this.currentPage);
+        this.getMain(this.currentPage);
       }
     },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
-        this.getTrips(this.currentPage);
+        this.getMain(this.currentPage);
       }
     },
     goToPage(page) {
       this.currentPage = page;
-      this.getTrips(this.currentPage);
+      this.getMain(this.currentPage);
+    },
+    togglePopup() {
+      this.showPopup = !this.showPopup;
+    },
+    handleFilterApplied(data) {
+      const { startDate, endDate } = data;
+
+      this.start_date = startDate;
+      this.end_date = endDate;
+      console.log("Dashboard'da alınan Start Date:", this.start_date);
+      console.log("Dashboard'da alınan End Date:", this.end_date);
+      this.getMain(this.currentPage);
     },
   },
   mounted() {
@@ -132,4 +202,7 @@ export default {
 </script>
 <style scoped>
 @import "../assets/css/styles.css";
+.list-div {
+  position: relative;
+}
 </style>

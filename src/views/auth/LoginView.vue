@@ -112,7 +112,7 @@ export default {
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
 
-        this.$emit("trips-success", true);
+        this.$emit("trips-success", false);
       }
     },
   },

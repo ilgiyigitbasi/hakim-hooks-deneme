@@ -46,7 +46,11 @@
         :backgroundColor="'#3382F8'"
       />
     </div>
-    <FilterVue :showPopup="showPopup" @closePopup="togglePopup" />
+    <FilterVue
+      :showPopup="showPopup"
+      @closePopup="togglePopup"
+      @filterApplied="handleFilterApplied"
+    />
   </div>
 </template>
 
@@ -70,6 +74,8 @@ export default {
     return {
       showPopup: false,
       titles: ["Request ID", "License Plate", "Date", "Detail"],
+      startDate: "",
+      endDate: "",
     };
   },
   methods: {
@@ -78,6 +84,14 @@ export default {
     },
     togglePopup() {
       this.showPopup = !this.showPopup;
+    },
+    handleFilterApplied(data) {
+      this.startDate = data.startDate;
+      this.endDate = data.endDate;
+      this.$emit("filter-applied", {
+        startDate: this.startDate,
+        endDate: this.endDate,
+      });
     },
   },
 };

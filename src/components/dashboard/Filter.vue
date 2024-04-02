@@ -145,8 +145,12 @@ export default {
       const endDate = this.date[1];
       const formattedEndDate = endDate.toISOString().split("T")[0];
 
-      console.log("Start Date:", formattedStartDate);
-      console.log("End Date:", formattedEndDate);
+      this.$emit("filterApplied", {
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      });
+      localStorage.setItem("startDate", startDate),
+        localStorage.setItem("endDate", endDate);
 
       this.startDate = formattedStartDate;
       this.endDate = formattedEndDate;
