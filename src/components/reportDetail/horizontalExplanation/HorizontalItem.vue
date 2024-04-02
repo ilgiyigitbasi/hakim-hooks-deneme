@@ -1,15 +1,19 @@
 <template>
   <div class="horizontal-inside-item">
-    <p class="explanation-text">{{ horizontalData.title }}</p>
-    <p class="explanation-text-black">{{ horizontalData.explanation }}</p>
+    <p class="explanation-text">{{ title }}</p>
+    <p class="explanation-text-black">{{ explanation }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    horizontalData: {
-      type: Object,
+    title: {
+      type: String,
+      required: true,
+    },
+    explanation: {
+      type: String,
       required: true,
     },
   },

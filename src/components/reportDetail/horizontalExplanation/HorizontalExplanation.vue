@@ -1,9 +1,16 @@
 <template>
   <div class="white-32px-div">
     <div class="horizontal-explanation-div">
-      <div v-for="(horizontalItem, index) in horizontalData" :key="index">
-        <HorizontalItem :horizontalData="horizontalItem" />
+      <div class="row-gap-8px-div">
+        <img
+          src="../../../assets/img/vehicle-history-icon.png"
+          style="width: 48px"
+        />
+        <HorizontalItem :title="'Brand'" :explanation="'N/A'" />
       </div>
+
+      <HorizontalItem :title="'License Plate'" :explanation="licensePlate" />
+      <HorizontalItem :title="'Total Trip'" :explanation="totalTrip" />
     </div>
   </div>
 </template>
@@ -15,9 +22,11 @@ export default {
     HorizontalItem,
   },
   props: {
-    horizontalData: {
-      type: Object,
-      required: true,
+    licensePlate: {
+      type: String,
+    },
+    totalTrip: {
+      type: String,
     },
   },
   data() {

@@ -1,17 +1,17 @@
 <template>
   <div class="web-list-item-div-dashboard">
     <div class="list-item-dashboard">
-      <p class="explanation-text-black">{{ listData.requestId }}</p>
+      <p class="explanation-text-black">{{ listData.id }}</p>
     </div>
 
     <div class="list-item-dashboard">
       <p class="explanation-text-black">
-        {{ listData.licensePlate }}
+        {{ listData.image_count }}
       </p>
     </div>
 
     <div class="list-item-dashboard">
-      <p class="explanation-text">{{ listData.date }}</p>
+      <p class="explanation-text">{{ listData.datetime }}</p>
     </div>
 
     <div class="list-item-dashboard">

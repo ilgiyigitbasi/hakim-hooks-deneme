@@ -91,7 +91,7 @@ export default {
       this.isLoading = true;
       try {
         const response = await axios.get(
-          `http://104.197.168.64:8080/api/trips?page=${page}`,
+          `http://104.197.168.64:8080/api/trips?limit=10&page=${page}`,
           {
             headers: {
               "Content-Type": "multipart/form-data",

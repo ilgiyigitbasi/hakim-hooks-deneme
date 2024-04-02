@@ -7,7 +7,10 @@
       <div class="row-gap-space-between">
         <h1 class="h1">Report Detail</h1>
 
-        <router-link to="/vehicleHistory" class="see-vehicle-button">
+        <router-link
+          :to="{ path: '/vehicleHistory', query: { id: licensePlate } }"
+          class="see-vehicle-button"
+        >
           <ButtonComponent
             :text="'See Vehicle History'"
             :width="'180px'"

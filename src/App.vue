@@ -12,7 +12,6 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import Navbar from "./components/Navbar.vue";
 import LoginView from "./views/auth/LoginView.vue";
-import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     Navbar,

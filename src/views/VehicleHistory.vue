@@ -1,18 +1,24 @@
 <template>
-  <div class="home-wrapper">
+  <div v-if="isLoading">
+    <Loader />
+  </div>
+  <div v-else class="home-wrapper">
     <div class="column-gap-32px-div">
       <div class="row-gap-16px-div">
-        <router-link to="/reportDetail">
+        <!-- <router-link to="/reportDetail">
           <img
             src="../assets/img/arrow-left.svg"
             style="height: 20px; margin-top: 8px"
           />
         </router-link>
-
+-->
         <h1 class="h1">Vehicle History</h1>
       </div>
 
-      <HorizontalExplanation :horizontal-data="horizontalData" />
+      <HorizontalExplanation
+        :licensePlate="licensePlate"
+        :total-trip="totalTrip"
+      />
       <div class="white-24px-div list-div">
         <div class="row-gap-16px-div">
           <SearchComponent />
@@ -47,6 +53,9 @@ import HorizontalExplanation from "@/components/reportDetail/horizontalExplanati
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import SearchComponent from "@/components/SearchComponent.vue";
 import VehicleHistoryItem from "@/components/VehicleHistoryItemm.vue";
+import Loader from "@/components/Loader.vue";
+import { mapGetters } from "vuex";
+import axios from "axios";
 
 export default {
   components: {
@@ -54,68 +63,56 @@ export default {
     ButtonComponent,
     SearchComponent,
     VehicleHistoryItem,
+    Loader,
   },
   data() {
     return {
-      horizontalData: [
-        {
-          src: require("@/assets/img/vehicle-history-icon.png"),
-          title: "Brand",
-          explanation: "N/A",
-        },
-        {
-          title: "License Plate",
-          explanation: "34 DFG 456",
-        },
-        {
-          title: "Total Trip",
-          explanation: "123",
-        },
-      ],
       titles: ["Request ID", "Uploaded Photo", "Date - Time", "Detail"],
-      listData: [
-        {
-          requestId: "34647528601785680",
-          licensePlate: "4",
-          date: "05/02/2024 14:45",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "3",
-          date: "05/02/2024 14:46",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "5",
-          date: "05/02/2024 14:47",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "1",
-          date: "05/02/2024 14:48",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "3",
-          date: "05/02/2024 14:45",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "4",
-          date: "05/02/2024 14:46",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "4",
-          date: "05/02/2024 14:47",
-        },
-        {
-          requestId: "34647528601785680",
-          licensePlate: "3",
-          date: "05/02/2024 14:48",
-        },
-      ],
+      listData: [],
+      licensePlate: "",
+      totalTrip: "",
+      isLoading: false,
     };
+  },
+  computed: {
+    ...mapGetters(["getToken"]),
+  },
+  mounted() {
+    this.getReportDetail();
+  },
+  methods: {
+    async getReportDetail() {
+      try {
+        this.isLoading = true;
+        const response = await axios.get(
+          "http://104.197.168.64:8080/api/trips?limit=10&license_plate=" +
+            this.licensePlate,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "X-Access-Token": this.getToken,
+            },
+          }
+        );
+        console.log("response data" + response.data);
+        this.listData = response.data.items;
+        this.totalTrip = response.data.total;
+        this.isLoading = false;
+      } catch (error) {
+        if (error.response && error.response.status) {
+          console.error("Login failed:", error.response.status);
+        } else {
+          console.error("An error occurred:", error.message);
+        }
+        this.errorMessage = "An error occurred. Please try again.";
+        this.isLoading = false;
+      }
+    },
+  },
+  created() {
+    console.log("Received ID:", this.$route.query.id);
+    this.licensePlate = this.$route.query.id;
+    this.getReportDetail();
   },
 };
 </script>
