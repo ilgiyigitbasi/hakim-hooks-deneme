@@ -26,7 +26,7 @@
 
   <div class="mobile-list-item-div-dashboard">
     <div class="row-gap-space-between">
-      <p class="explanation-text">{{ listData.date }}</p>
+      <p class="explanation-text">{{ listData.datetime }}</p>
 
       <div class="detail-button">
         <router-link
@@ -42,13 +42,13 @@
     <div class="column-gap-12px-div">
       <div class="row-gap-16px-div">
         <p class="explanation-text item-text">Request ID:</p>
-        <p class="explanation-text-black">{{ listData.requestId }}</p>
+        <p class="explanation-text-black">{{ listData.id }}</p>
       </div>
 
       <div class="row-gap-16px-div">
         <p class="explanation-text item-text">Uploaded Photo:</p>
         <p class="explanation-text-black">
-          {{ listData.licensePlate }}
+          {{ listData.image_count }}
         </p>
       </div>
     </div>

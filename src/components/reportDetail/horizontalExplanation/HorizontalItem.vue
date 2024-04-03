@@ -1,6 +1,6 @@
 <template>
   <div class="horizontal-inside-item">
-    <p class="explanation-text">{{ title }}</p>
+    <p class="explanation-text horizontal-exp">{{ title }}</p>
     <p class="explanation-text-black">{{ explanation }}</p>
   </div>
 </template>

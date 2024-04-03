@@ -1512,6 +1512,9 @@ input::placeholder {
   cursor: pointer;
 }
 @media (max-width: 1000px) {
+  .horizontal-exp {
+    width: 100px;
+  }
   .info-text {
     top: 170px;
     padding: 4px 8px;
@@ -1522,10 +1525,11 @@ input::placeholder {
   .horizontal-inside-item {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    column-gap: 48px;
   }
   .horizontal-explanation-div {
     display: flex;
+    align-items: start;
     flex-direction: column;
     row-gap: 16px;
     padding: 0;
