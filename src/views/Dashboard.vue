@@ -44,7 +44,12 @@ export default {
 
   mounted() {
     window.addEventListener("resize", this.updateScreenSize);
+    if (!this.getToken) {
+      // Eğer token null ise
+      this.$emit("trips-success", false);
+    }
     this.getTrips();
+    console.log("Token:", this.getToken);
   },
 
   methods: {
@@ -93,6 +98,8 @@ export default {
 
         this.$emit("trips-success", false);
         this.isLoading = false;
+        // Hata durumunda sayfanın yenilenmesi
+        window.location.reload();
       }
     },
     async getTripsFiltered() {
@@ -119,12 +126,16 @@ export default {
 
         this.$emit("trips-success", true);
         this.isLoading = false;
+        localStorage.setItem("error", false);
       } catch (error) {
+        localStorage.setItem("error", true);
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
 
         this.$emit("trips-success", false);
         this.isLoading = false;
+        // Hata durumunda sayfanın yenilenmesi
+        window.location.reload();
       }
     },
   },

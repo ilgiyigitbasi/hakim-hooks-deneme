@@ -44,14 +44,23 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   props: ["titles", "selectedIndex"],
   methods: {
     selectTitle(index) {
       this.$emit("titleClicked", index);
     },
+    ...mapMutations(["SET_TOKEN"]), // Vuex'teki SET_TOKEN mutasyonunu kullanabilmek için ekleme
+
     logoutClicked() {
-      console.log("logout");
+      // Token'ı null olarak ayarla
+      this.SET_TOKEN(null);
+
+      localStorage.setItem("tripsSuccess", JSON.stringify(false));
+      this.$emit("trips-success", false);
+
+      this.$router.push("/");
     },
   },
   props: {

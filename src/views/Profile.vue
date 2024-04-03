@@ -62,10 +62,12 @@ export default {
         this.userDetails.email = response.data.email;
         this.userDetails.name = response.data.name;
         this.isLoading = false;
+        localStorage.setItem("error", false);
       } catch (error) {
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
         this.isLoading = false;
+        localStorage.setItem("error", true);
       }
     },
   },

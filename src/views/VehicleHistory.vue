@@ -133,6 +133,7 @@ export default {
         this.totalTrip = response.data.total;
         this.totalPages = response.data.pages;
         this.isLoading = false;
+        localStorage.setItem("error", false);
       } catch (error) {
         if (error.response && error.response.status) {
           console.error("Login failed:", error.response.status);
@@ -141,6 +142,7 @@ export default {
         }
         this.errorMessage = "An error occurred. Please try again.";
         this.isLoading = false;
+        localStorage.setItem("error", true);
       }
     },
     nextPage() {

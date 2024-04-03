@@ -157,12 +157,14 @@ export default {
         this.totalPages = response.data.pages;
         this.$emit("trips-success", true);
         this.isLoading = false;
+        localStorage.setItem("error", false);
       } catch (error) {
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
 
         this.$emit("trips-success", false);
         this.isLoading = false;
+        localStorage.setItem("error", true);
       }
     },
 

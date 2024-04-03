@@ -108,7 +108,9 @@ export default {
         localStorage.setItem("token", this.getToken);
 
         this.$emit("trips-success", true);
+        localStorage.setItem("error", false);
       } catch (error) {
+        localStorage.setItem("error", true);
         console.error("Login failed:", error.response.status);
         this.errorMessage = "Login failed. Please try again.";
 

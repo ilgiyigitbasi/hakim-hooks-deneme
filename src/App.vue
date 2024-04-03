@@ -1,10 +1,15 @@
 <template>
-  <div class="wrapper" v-if="tripsSuccess">
-    <Navbar />
-    <main><router-view /></main>
+  <div v-if="error">
+    <ErrorScreen />
   </div>
   <div v-else>
-    <LoginView @trips-success="updateTripsSuccess" />
+    <div class="wrapper" v-if="tripsSuccess">
+      <Navbar />
+      <main><router-view /></main>
+    </div>
+    <div v-else>
+      <LoginView @trips-success="updateTripsSuccess" />
+    </div>
   </div>
 </template>
 <script>
@@ -12,20 +17,24 @@ import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import Navbar from "./components/Navbar.vue";
 import LoginView from "./views/auth/LoginView.vue";
+import ErrorScreen from "./components/ErrorScreen.vue";
 export default {
   components: {
     Navbar,
     VueDatePicker,
     LoginView,
+    ErrorScreen,
   },
   data() {
     return {
       tripsSuccess: JSON.parse(localStorage.getItem("tripsSuccess")) || null,
+      error: localStorage.getItem("error") === "true" || false,
     };
   },
   created() {
     console.log(localStorage.getItem("token"));
     console.log(this.tripsSuccess);
+    console.log(localStorage.getItem("error"));
   },
   computed: {},
   methods: {
