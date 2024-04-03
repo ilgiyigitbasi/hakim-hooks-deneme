@@ -32,6 +32,7 @@ export default {
       isLoading: false,
       start_date: null,
       end_date: null,
+      license_plate: null,
     };
   },
 
@@ -54,31 +55,29 @@ export default {
 
   methods: {
     handleFilterApplied(data) {
-      const { startDate, endDate } = data;
+      const { startDate, endDate, licensePlate } = data;
 
       this.start_date = startDate;
       this.end_date = endDate;
+      this.license_plate = licensePlate;
       console.log("Dashboard'da alınan Start Date:", this.start_date);
       console.log("Dashboard'da alınan End Date:", this.end_date);
-      this.getMain();
+      console.log("Dashboard'dan alınan License Plate:", licensePlate);
+      console.log(
+        "License Plate değeri Reports.vue dosyasında:",
+        this.license_plate
+      ); // Bu satırı ekledim
+      this.getMain(this.currentPage);
     },
 
     updateScreenSize() {
       this.isSmallScreen = window.innerWidth < 1000;
     },
-    async getMain() {
-      if (this.start_date === null || this.end_date === null) {
-        this.getTrips();
-      } else {
-        this.getTripsFiltered();
-      }
-    },
-    async getTrips() {
+    async getTrips(page) {
       this.isLoading = true;
       try {
         const response = await axios.get(
-          " http://104.197.168.64:8080/api/trips",
-
+          `http://104.197.168.64:8080/api/trips?limit=10&page=${page}`,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -87,55 +86,94 @@ export default {
           }
         );
 
-        console.log("response data" + response.data);
         this.items = response.data.items;
-
-        this.$emit("trips-success", true);
+        this.totalPages = response.data.pages;
         this.isLoading = false;
       } catch (error) {
-        console.error("Login failed:", error.response.status);
-        this.errorMessage = "Login failed. Please try again.";
-
-        this.$emit("trips-success", false);
+        console.error("Error fetching trips:", error);
         this.isLoading = false;
-        // Hata durumunda sayfanın yenilenmesi
-        window.location.reload();
       }
     },
-    async getTripsFiltered() {
+    async getMain(page) {
+      if (this.start_date && this.end_date && this.license_plate) {
+        this.getTripsFiltered(page);
+      } else if (this.start_date && this.end_date) {
+        this.getTripsFilteredDate(page);
+      } else {
+        this.getTrips(page);
+      }
+    },
+    async getTripsFiltered(page) {
       this.isLoading = true;
       try {
-        const response = await axios.get(
-          " http://104.197.168.64:8080/api/trips?start_date=" +
-            this.start_date +
-            " 00:00" +
-            "&end_date=" +
-            this.end_date +
-            " 23:59",
+        const url =
+          "http://104.197.168.64:8080/api/trips?page=" +
+          page +
+          "&start_date=" +
+          this.start_date +
+          " 00:00" +
+          "&end_date=" +
+          this.end_date +
+          " 23:59" +
+          "&license_plate=" +
+          this.license_plate;
+        console.log("Request URL:", url); // URL'yi konsola yazdır
 
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              "X-Access-Token": this.getToken,
-            },
-          }
-        );
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "X-Access-Token": this.getToken,
+          },
+        });
 
-        console.log("response data" + response.data);
+        console.log("response data", response.data);
         this.items = response.data.items;
-
+        this.totalPages = response.data.pages;
         this.$emit("trips-success", true);
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
-        localStorage.setItem("error", true);
-        console.error("Login failed:", error.response.status);
-        this.errorMessage = "Login failed. Please try again.";
-
+        console.error("Error fetching trips:", error.response.status);
+        this.errorMessage = "Error fetching trips. Please try again.";
         this.$emit("trips-success", false);
         this.isLoading = false;
-        // Hata durumunda sayfanın yenilenmesi
-        window.location.reload();
+        localStorage.setItem("error", true);
+      }
+    },
+
+    async getTripsFilteredDate(page) {
+      this.isLoading = true;
+      try {
+        const url =
+          "http://104.197.168.64:8080/api/trips?page=" +
+          page +
+          "&start_date=" +
+          this.start_date +
+          " 00:00" +
+          "&end_date=" +
+          this.end_date +
+          " 23:59";
+        console.log("Request URL:", url); // URL'yi konsola yazdır
+
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "X-Access-Token": this.getToken,
+          },
+        });
+
+        console.log("response data", response.data);
+        this.items = response.data.items;
+        this.totalPages = response.data.pages;
+        this.$emit("trips-success", true);
+        this.isLoading = false;
+        localStorage.setItem("error", false);
+      } catch (error) {
+        console.error("Error fetching trips:", error.response.status);
+        this.errorMessage = "Error fetching trips. Please try again.";
+        this.$emit("trips-success", false);
+        this.isLoading = false;
+        localStorage.setItem("error", true);
       }
     },
   },

@@ -153,11 +153,10 @@ export default {
       this.$emit("filterApplied", {
         startDate: formattedStartDate,
         endDate: formattedEndDate,
-        licensePlate: this.licensePlate,
+        licensePlate: this.licensePlate, // localStorage'dan alınan değeri gönder
       });
       localStorage.setItem("startDate", startDate),
         localStorage.setItem("endDate", endDate);
-      localStorage.setItem("licensePlate", endDate);
 
       this.startDate = formattedStartDate;
       this.endDate = formattedEndDate;
@@ -174,10 +173,14 @@ export default {
     },
   },
   setup() {
-    const date = ref();
+    const date = ref([]);
 
     onMounted(() => {
-      date;
+      const today = new Date();
+      const oneMonthAgo = new Date(today);
+      oneMonthAgo.setMonth(today.getMonth() - 1);
+
+      date.value = [oneMonthAgo, today];
     });
 
     return {

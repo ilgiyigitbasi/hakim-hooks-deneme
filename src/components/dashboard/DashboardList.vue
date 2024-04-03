@@ -1,7 +1,7 @@
 <template>
   <div class="white-24px-div column-gap-32px-div list">
     <div class="row-gap-space-between title-div">
-      <p class="graph-title">Last 5 Reports</p>
+      <p class="graph-title">Last Reports</p>
 
       <div class="row-gap-16px-div">
         <ButtonComponent
@@ -76,6 +76,7 @@ export default {
       titles: ["Request ID", "License Plate", "Date", "Detail"],
       startDate: "",
       endDate: "",
+      licensePlate: "",
     };
   },
   methods: {
@@ -88,9 +89,11 @@ export default {
     handleFilterApplied(data) {
       this.startDate = data.startDate;
       this.endDate = data.endDate;
+      this.licensePlate = data.licensePlate;
       this.$emit("filter-applied", {
         startDate: this.startDate,
         endDate: this.endDate,
+        licensePlate: this.licensePlate,
       });
     },
   },

@@ -232,6 +232,10 @@ export default {
       console.log("Dashboard'da alınan Start Date:", this.start_date);
       console.log("Dashboard'da alınan End Date:", this.end_date);
       console.log("Dashboard'dan alınan License Plate:", licensePlate);
+      console.log(
+        "License Plate değeri Reports.vue dosyasında:",
+        this.license_plate
+      ); // Bu satırı ekledim
       this.getMain(this.currentPage);
     },
   },
