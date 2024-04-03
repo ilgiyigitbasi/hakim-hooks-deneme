@@ -1,5 +1,5 @@
 <template>
-  <div v-if="error">
+  <div v-if="error === 'true' || false">
     <ErrorScreen />
   </div>
   <div v-else>
@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       tripsSuccess: JSON.parse(localStorage.getItem("tripsSuccess")) || null,
-      error: localStorage.getItem("error") === "true" || false,
+      error: localStorage.getItem("error") || false,
     };
   },
   created() {
