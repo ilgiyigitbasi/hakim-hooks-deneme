@@ -34,7 +34,7 @@
           />
         </div>
 
-        <div class="column-gap-8px-div">
+        <!--   <div class="column-gap-8px-div">
           <p class="explanation-text">Request ID:</p>
           <InputComponent
             :height="'40px'"
@@ -42,7 +42,7 @@
             v-model="requestId"
           />
         </div>
-
+-->
         <div class="column-gap-32px-div">
           <div class="column-gap-8px-div">
             <p class="explanation-text">Date Range:</p>
@@ -139,6 +139,11 @@ export default {
       this.$emit("closePopup");
     },
     applyFilters() {
+      if (this.licensePlate !== "" && !this.isValidPlate) {
+        this.showInfoText = true;
+        // Plaka deseni doğru değilse, applyFilters fonksiyonunu uygulamayıp çık.
+        return;
+      }
       const startDate = this.date[0];
       const formattedStartDate = startDate.toISOString().split("T")[0];
 
