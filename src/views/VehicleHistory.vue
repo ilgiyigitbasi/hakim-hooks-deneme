@@ -119,7 +119,7 @@ export default {
         const response = await axios.get(
           "http://104.197.168.64:8080/api/trips?limit=10&license_plate=" +
             this.licensePlate +
-            "&page=${page}" +
+            "&page=" +
             page,
           {
             headers: {
@@ -131,7 +131,7 @@ export default {
         console.log("response data" + response.data);
         this.listData = response.data.items;
         this.totalTrip = response.data.total;
-        this.totalPages = response.data.pages;
+        this.totalPages = response.data.total;
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
