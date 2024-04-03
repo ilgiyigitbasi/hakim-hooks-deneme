@@ -6,8 +6,7 @@
     <h1 class="h1">Reports</h1>
 
     <div class="white-24px-div list-div">
-      <div class="row-gap-16px-div">
-        <SearchComponent />
+      <div class="align-right-div">
         <ButtonComponent
           @click="togglePopup"
           :text="'Filters'"
@@ -69,7 +68,6 @@
 
 <script>
 import axios from "axios";
-import SearchComponent from "@/components/SearchComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import DashboardListItem from "@/components/dashboard/DashboardListItem.vue";
 import Filter from "@/components/dashboard/Filter.vue";
@@ -79,7 +77,6 @@ import { mapGetters } from "vuex";
 export default {
   name: "Reports",
   components: {
-    SearchComponent,
     ButtonComponent,
     DashboardListItem,
     Loader,

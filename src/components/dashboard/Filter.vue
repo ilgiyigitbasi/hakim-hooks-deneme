@@ -177,9 +177,7 @@ export default {
     const date = ref();
 
     onMounted(() => {
-      const startDate = new Date();
-      const endDate = new Date(new Date().setDate(startDate.getDate() - 7));
-      date.value = [startDate, endDate];
+      date;
     });
 
     return {

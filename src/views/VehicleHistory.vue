@@ -110,7 +110,8 @@ export default {
     ...mapGetters(["getToken"]),
   },
   mounted() {
-    this.getReportDetail();
+    console.log("Page value on mount:", this.currentPage);
+    this.getReportDetail(this.currentPage);
   },
   methods: {
     async getReportDetail(page) {
@@ -163,6 +164,7 @@ export default {
     },
   },
   created() {
+    console.log("Page value on create:", this.currentPage);
     console.log("Received ID:", this.$route.query.id);
     this.licensePlate = this.$route.query.id;
     this.getReportDetail();
