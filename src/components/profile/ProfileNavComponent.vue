@@ -16,7 +16,13 @@
           <img style="width: 16px" src="../../assets/img/logout.svg" alt="" />
         </div>
 
-        <div v-if="showLogoutBtn" class="logout-button">Log out</div>
+        <div
+          v-if="showLogoutBtn"
+          @click="logoutClicked()"
+          class="logout-button"
+        >
+          Log out
+        </div>
       </div>
     </div>
 
@@ -43,6 +49,9 @@ export default {
   methods: {
     selectTitle(index) {
       this.$emit("titleClicked", index);
+    },
+    logoutClicked() {
+      console.log("logout");
     },
   },
   props: {
