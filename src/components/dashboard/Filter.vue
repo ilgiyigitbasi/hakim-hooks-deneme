@@ -130,7 +130,7 @@ export default {
       requestId: "",
       startDate: "",
       endDate: "",
-      platePattern: "^(0[1-9]|[1-7][0-9]|8[01])([A-Z]{3})(\\d{3})$",
+      platePattern: "^(0[1-9]|[1-9][0-9])([A-Z]{2,3})(\\d{3})$",
       showInfoText: false,
     };
   },
@@ -153,9 +153,11 @@ export default {
       this.$emit("filterApplied", {
         startDate: formattedStartDate,
         endDate: formattedEndDate,
+        licensePlate: this.licensePlate,
       });
       localStorage.setItem("startDate", startDate),
         localStorage.setItem("endDate", endDate);
+      localStorage.setItem("licensePlate", endDate);
 
       this.startDate = formattedStartDate;
       this.endDate = formattedEndDate;
@@ -176,7 +178,7 @@ export default {
 
     onMounted(() => {
       const startDate = new Date();
-      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+      const endDate = new Date(new Date().setDate(startDate.getDate() - 7));
       date.value = [startDate, endDate];
     });
 

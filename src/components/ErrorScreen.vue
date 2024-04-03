@@ -41,6 +41,7 @@ export default {
   methods: {
     retry() {
       this.$router.go(-1); // Go back to the previous page
+      window.location.reload();
     },
   },
 };

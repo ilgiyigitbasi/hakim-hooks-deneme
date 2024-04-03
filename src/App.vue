@@ -1,5 +1,5 @@
 <template>
-  <div v-if="error === 'true' || false">
+  <div v-if="error">
     <ErrorScreen />
   </div>
   <div v-else>
@@ -12,12 +12,14 @@
     </div>
   </div>
 </template>
+
 <script>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import Navbar from "./components/Navbar.vue";
 import LoginView from "./views/auth/LoginView.vue";
 import ErrorScreen from "./components/ErrorScreen.vue";
+
 export default {
   components: {
     Navbar,
@@ -28,7 +30,7 @@ export default {
   data() {
     return {
       tripsSuccess: JSON.parse(localStorage.getItem("tripsSuccess")) || null,
-      error: localStorage.getItem("error") || false,
+      error: localStorage.getItem("error") === "true" || false,
     };
   },
   created() {
@@ -36,7 +38,6 @@ export default {
     console.log(this.tripsSuccess);
     console.log(localStorage.getItem("error"));
   },
-  computed: {},
   methods: {
     updateTripsSuccess(success) {
       this.tripsSuccess = success;
@@ -45,6 +46,7 @@ export default {
   },
 };
 </script>
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
 @import "assets/css/colors.css";
