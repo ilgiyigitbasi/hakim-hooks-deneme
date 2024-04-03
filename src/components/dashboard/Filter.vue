@@ -144,22 +144,34 @@ export default {
         // Plaka deseni doğru değilse, applyFilters fonksiyonunu uygulamayıp çık.
         return;
       }
-      const startDate = this.date[0];
-      const formattedStartDate = startDate.toISOString().split("T")[0];
 
-      const endDate = this.date[1];
-      const formattedEndDate = endDate.toISOString().split("T")[0];
+      // date dizisi null değilse ve en az 2 elemana sahipse işlemleri yap
+      if (this.date && this.date.length >= 2) {
+        const startDate = this.date[0];
+        const formattedStartDate = startDate.toISOString().split("T")[0];
 
-      this.$emit("filterApplied", {
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-        licensePlate: this.licensePlate, // localStorage'dan alınan değeri gönder
-      });
-      localStorage.setItem("startDate", startDate),
-        localStorage.setItem("endDate", endDate);
+        const endDate = this.date[1];
+        const formattedEndDate = endDate.toISOString().split("T")[0];
 
-      this.startDate = formattedStartDate;
-      this.endDate = formattedEndDate;
+        this.$emit("filterApplied", {
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
+          licensePlate: this.licensePlate, // localStorage'dan alınan değeri gönder
+        });
+        localStorage.setItem("startDate", startDate),
+          localStorage.setItem("endDate", endDate);
+
+        this.startDate = formattedStartDate;
+        this.endDate = formattedEndDate;
+      } else {
+        // Eğer date dizisi null veya undefined ise veya en az 2 elemana sahip değilse, sadece licensePlate'i gönder
+        this.$emit("filterApplied", {
+          startDate: null,
+          endDate: null,
+          licensePlate: this.licensePlate,
+        });
+      }
+
       this.closePopup();
     },
     convertToUpperCase() {
@@ -174,14 +186,6 @@ export default {
   },
   setup() {
     const date = ref([]);
-
-    onMounted(() => {
-      const today = new Date();
-      const oneMonthAgo = new Date(today);
-      oneMonthAgo.setMonth(today.getMonth() - 1);
-
-      date.value = [oneMonthAgo, today];
-    });
 
     return {
       date,
