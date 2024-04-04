@@ -48,11 +48,6 @@
             :height="'45px'"
             @click="login"
           />
-
-          <p @click="goToRegister" class="signUpBtn">
-            Don't you have an account?
-            <span style="font-weight: 600; color: #3382f8">Sign Up</span>
-          </p>
         </div>
       </div>
     </div>
@@ -109,6 +104,7 @@ export default {
 
         this.$emit("trips-success", true);
         localStorage.setItem("error", false);
+        this.$router.push("/");
       } catch (error) {
         localStorage.setItem("error", true);
         console.error("Login failed:", error.response.status);

@@ -452,6 +452,7 @@ input::placeholder {
   height: 100vh;
   padding: 64px 120px;
   width: 100%;
+  align-items: center;
 }
 .auth-inside-div {
   align-items: center;
@@ -1355,7 +1356,7 @@ input::placeholder {
   width: 600px;
 }
 .details-div {
-  height: 360px;
+  height: 500px;
 }
 .popup-div {
   width: 100%;

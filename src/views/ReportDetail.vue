@@ -5,7 +5,10 @@
   <div v-else class="home-wrapper">
     <div class="column-gap-32px-div">
       <div class="row-gap-space-between">
-        <h1 class="h1">Report Detail</h1>
+        <div class="row-gap-8px-div">
+          <h1 class="h1 reports-text" @click="navigateToReports">Reports</h1>
+          <h1 class="h1">- Report Detail</h1>
+        </div>
 
         <router-link
           :to="{ path: '/vehicleHistory', query: { id: licensePlate } }"
@@ -98,6 +101,10 @@ export default {
         localStorage.setItem("error", true);
       }
     },
+    navigateToReports() {
+      // Vue Router ile /reports yoluna yönlendirme yapın
+      this.$router.push("/reports");
+    },
   },
   computed: {
     ...mapGetters(["getToken"]),
@@ -117,5 +124,12 @@ export default {
 @import "../assets/css/styles.css";
 .see-vehicle-button {
   text-decoration: none;
+}
+.reports-text {
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.reports-text:hover {
+  color: #3382f8;
 }
 </style>

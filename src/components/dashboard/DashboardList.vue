@@ -1,19 +1,12 @@
 <template>
   <div class="white-24px-div column-gap-32px-div list">
     <div class="row-gap-space-between title-div">
-      <p class="graph-title">Last Reports</p>
+      <p class="graph-title">Last 10 Reports</p>
 
       <div class="row-gap-16px-div">
         <ButtonComponent
-          @click="togglePopup"
-          class="filters-button"
-          :text="'Filters'"
-          :width="'112px'"
-          :height="'40px'"
-        />
-        <ButtonComponent
           class="report-button"
-          :text="'Reports'"
+          :text="'All Reports'"
           :width="'112px'"
           :height="'40px'"
           :color="'#ffffff'"
@@ -39,7 +32,7 @@
       <ButtonComponent
         @click="redirectToReports"
         class="report-button-mobile"
-        :text="'Reports'"
+        :text="'All Reports'"
         :width="'112px'"
         :height="'40px'"
         :color="'#ffffff'"

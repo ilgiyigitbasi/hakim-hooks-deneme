@@ -3,12 +3,20 @@
     <div class="column-gap-24px-div">
       <p class="graph-title">Details</p>
 
-      <div class="column-gap-24px-div">
+      <div class="column-gap-16px-div">
         <DetailItem :exp="licensePlate" :title="'License Plate:'" />
         <div class="line"></div>
         <DetailItem :exp="date" :title="'Date - Time:'" />
         <div class="line"></div>
         <DetailItem :exp="requestId" :title="'Request ID:'" />
+        <div class="line"></div>
+        <DetailItem :exp="uploadedImages" :title="'Brand:'" />
+        <div class="line"></div>
+        <DetailItem :exp="uploadedImages" :title="'Model:'" />
+        <div class="line"></div>
+        <DetailItem :exp="uploadedImages" :title="'Color:'" />
+        <div class="line"></div>
+        <DetailItem :exp="uploadedImages" :title="'Camera Angle:'" />
         <div class="line"></div>
         <DetailItem :exp="uploadedImages" :title="'Uploaded Images:'" />
       </div>

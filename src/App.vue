@@ -1,15 +1,10 @@
 <template>
-  <div v-if="error">
-    <ErrorScreen />
+  <div class="wrapper" v-if="tripsSuccess">
+    <Navbar />
+    <main><router-view /></main>
   </div>
   <div v-else>
-    <div class="wrapper" v-if="tripsSuccess">
-      <Navbar />
-      <main><router-view /></main>
-    </div>
-    <div v-else>
-      <LoginView @trips-success="updateTripsSuccess" />
-    </div>
+    <LoginView @trips-success="updateTripsSuccess" />
   </div>
 </template>
 
@@ -33,11 +28,7 @@ export default {
       error: localStorage.getItem("error") === "true" || false,
     };
   },
-  created() {
-    console.log(localStorage.getItem("token"));
-    console.log(this.tripsSuccess);
-    console.log(localStorage.getItem("error"));
-  },
+  created() {},
   methods: {
     updateTripsSuccess(success) {
       this.tripsSuccess = success;

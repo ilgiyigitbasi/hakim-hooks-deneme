@@ -125,9 +125,9 @@ export default {
     async getMain(page) {
       if (this.start_date && this.end_date && this.license_plate) {
         this.getTripsFiltered(page);
-      } else if (this.start_date && this.end_date) {
+      } else if (this.start_date && this.end_date && !this.license_plate) {
         this.getTripsFilteredDate(page);
-      } else if (this.license_plate) {
+      } else if ((this.license_plate && !this.start_date) || !this.end_date) {
         this.getTripsFilteredLicense(page);
       } else {
         this.getTrips(page);
@@ -240,18 +240,19 @@ export default {
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
-        this.getMain(this.currentPage);
+        this.getTrips(this.currentPage);
       }
     },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
-        this.getMain(this.currentPage);
+        this.getTrips(this.currentPage);
       }
     },
     goToPage(page) {
+      console.log("Clicked page:", page);
       this.currentPage = page;
-      this.getMain(this.currentPage);
+      this.getTrips(this.currentPage);
     },
     togglePopup() {
       this.showPopup = !this.showPopup;
@@ -274,6 +275,8 @@ export default {
   },
   mounted() {
     this.getTrips(this.currentPage);
+    console.log("Start Date:", this.start_date);
+    console.log("End Date:", this.end_date);
   },
 };
 </script>

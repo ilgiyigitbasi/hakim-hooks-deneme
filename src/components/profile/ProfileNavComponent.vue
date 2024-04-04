@@ -51,16 +51,16 @@ export default {
     selectTitle(index) {
       this.$emit("titleClicked", index);
     },
-    ...mapMutations(["SET_TOKEN"]), // Vuex'teki SET_TOKEN mutasyonunu kullanabilmek için ekleme
+    ...mapMutations(["SET_TOKEN"]),
 
     logoutClicked() {
-      // Token'ı null olarak ayarla
       this.SET_TOKEN(null);
 
       localStorage.setItem("tripsSuccess", JSON.stringify(false));
       this.$emit("trips-success", false);
 
       this.$router.push("/");
+      window.location.reload();
     },
   },
   props: {

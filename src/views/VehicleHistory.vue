@@ -12,7 +12,11 @@
           />
         </router-link>
 -->
-        <h1 class="h1">Vehicle History</h1>
+
+        <div class="row-gap-8px-div">
+          <h1 class="h1 reports-text" @click="navigateToReports">Reports</h1>
+          <h1 class="h1">- Vehicle History | {{ licensePlate }}</h1>
+        </div>
       </div>
 
       <HorizontalExplanation
@@ -20,15 +24,6 @@
         :total-trip="totalTrip"
       />
       <div class="white-24px-div list-div">
-        <div class="row-gap-16px-div">
-          <SearchComponent />
-          <ButtonComponent
-            :text="'Filters'"
-            :width="'100px'"
-            :height="'45px'"
-          />
-        </div>
-
         <div class="list-title-div">
           <div v-for="(title, index) in titles" :key="index">
             <p class="list-title explanation-text">{{ title }}</p>
@@ -146,6 +141,10 @@ export default {
         localStorage.setItem("error", true);
       }
     },
+    navigateToReports() {
+      // Vue Router ile /reports yoluna yönlendirme yapın
+      this.$router.push("/reports");
+    },
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
@@ -173,7 +172,15 @@ export default {
 </script>
 
 <style scoped>
+@import "../assets/css/styles.css";
 .icon {
   cursor: pointer;
+}
+.reports-text {
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.reports-text:hover {
+  color: #3382f8;
 }
 </style>

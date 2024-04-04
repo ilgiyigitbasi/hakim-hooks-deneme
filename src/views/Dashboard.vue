@@ -1,8 +1,5 @@
 <template>
-  <div v-if="isLoading">
-    <Loader />
-  </div>
-  <div v-else class="dashboard-wrapper">
+  <div class="dashboard-wrapper">
     <h1 class="h1">Dashboard</h1>
     <div class="column-gap-32px-div">
       <img class="video" :src="videoSource" alt="" />
@@ -14,7 +11,6 @@
 
 <script>
 import DashboardList from "@/components/dashboard/DashboardList.vue";
-import Loader from "@/components/Loader.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
 const isaacvideo = require("@/assets/img/isaac-web.gif");
@@ -22,7 +18,6 @@ const mobilvideo = require("@/assets/img/isaac-mobil.gif");
 export default {
   components: {
     DashboardList,
-    Loader,
   },
 
   data() {
