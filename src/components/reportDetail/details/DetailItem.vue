@@ -2,7 +2,7 @@
   <div class="row-gap-space-between">
     <p class="explanation-text">{{ title }}</p>
 
-    <p class="explanation-text-black">{{ exp }}</p>
+    <p class="explanation-text-black">{{ displayExp }}</p>
   </div>
 </template>
 
@@ -16,6 +16,11 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+  },
+  computed: {
+    displayExp() {
+      return this.exp ? this.exp : "-";
     },
   },
 };

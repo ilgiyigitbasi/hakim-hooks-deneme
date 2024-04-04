@@ -10,15 +10,15 @@
         <div class="line"></div>
         <DetailItem :exp="requestId" :title="'Request ID:'" />
         <div class="line"></div>
-        <DetailItem :exp="'-'" :title="'Brand:'" />
+        <DetailItem :exp="brand" :title="'Brand:'" />
         <div class="line"></div>
-        <DetailItem :exp="'-'" :title="'Model:'" />
+        <DetailItem :exp="model" :title="'Model:'" />
         <div class="line"></div>
-        <DetailItem :exp="'-'" :title="'Body Type:'" />
+        <DetailItem :exp="carType" :title="'Body Type:'" />
         <div class="line"></div>
-        <DetailItem :exp="'-'" :title="'Color:'" />
+        <DetailItem :exp="color" :title="'Color:'" />
         <div class="line"></div>
-        <DetailItem :exp="'-'" :title="'Camera Angle:'" />
+        <DetailItem :exp="location" :title="'Camera Angle:'" />
         <div class="line"></div>
         <DetailItem :exp="uploadedImages" :title="'Uploaded Images:'" />
       </div>
@@ -34,6 +34,11 @@ export default {
     date: String,
     requestId: String,
     uploadedImages: String,
+    brand: String,
+    model: String,
+    carType: String,
+    color: String,
+    location: String,
   },
   components: {
     DetailItem,

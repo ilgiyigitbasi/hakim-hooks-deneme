@@ -38,6 +38,11 @@
           :date="date"
           :requestId="requestId"
           :uploadedImages="uploadedImages"
+          :brand="brand"
+          :model="model"
+          :carType="carType"
+          :color="color"
+          :location="location"
         />
       </div>
     </div>
@@ -67,6 +72,11 @@ export default {
       requestId: "",
       uploadedImages: "",
       newFormattedDate: "",
+      brand: "",
+      model: "",
+      carType: "",
+      color: "",
+      location: "",
     };
   },
   methods: {
@@ -87,6 +97,11 @@ export default {
         this.date = response.data.date;
         this.requestId = response.data.id;
         this.uploadedImages = response.data.image_count;
+        this.brand = response.data.brand;
+        this.model = response.data.model;
+        this.carType = response.data.car_type;
+        this.color = response.data.color;
+        this.location = response.data.location;
         if (response.data.images) {
           this.imageData = response.data.images;
           console.log("image datas:", this.imageData);

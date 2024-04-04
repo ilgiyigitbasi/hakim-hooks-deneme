@@ -25,6 +25,7 @@
       <HorizontalExplanation
         :licensePlate="licensePlate"
         :total-trip="totalTrip"
+        :brand="brand"
       />
       <div class="white-24px-div list-div">
         <div class="list-title-div">
@@ -102,6 +103,7 @@ export default {
       isLoading: false,
       currentPage: 1,
       totalPages: 0,
+      brand: "",
     };
   },
   computed: {
