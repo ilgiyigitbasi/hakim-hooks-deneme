@@ -123,6 +123,9 @@ export default {
       }
     },
     async getMain(page) {
+      if (!page) {
+        page = 1; // Eğer page tanımsızsa veya boşsa, 1 olarak atıyoruz.
+      }
       if (this.start_date && this.end_date && this.license_plate) {
         this.getTripsFiltered(page);
       } else if (this.start_date && this.end_date && !this.license_plate) {
@@ -274,9 +277,10 @@ export default {
     },
   },
   mounted() {
-    this.getTrips(this.currentPage);
     console.log("Start Date:", this.start_date);
+    console.log("Current Page:", this.currentPage);
     console.log("End Date:", this.end_date);
+    this.getTrips(this.currentPage);
   },
 };
 </script>

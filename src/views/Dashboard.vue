@@ -28,6 +28,7 @@ export default {
       start_date: null,
       end_date: null,
       license_plate: null,
+      currentPage: 1,
     };
   },
 
@@ -44,7 +45,7 @@ export default {
       // Eğer token null ise
       this.$emit("trips-success", false);
     }
-    this.getTrips();
+    this.getTrips(this.currentPage);
     console.log("Token:", this.getToken);
   },
 
@@ -62,7 +63,7 @@ export default {
         "License Plate değeri Reports.vue dosyasında:",
         this.license_plate
       ); // Bu satırı ekledim
-      this.getMain(this.currentPage);
+      this.getTrips(this.currentPage);
     },
 
     updateScreenSize() {
@@ -87,121 +88,6 @@ export default {
       } catch (error) {
         console.error("Error fetching trips:", error);
         this.isLoading = false;
-      }
-    },
-    async getMain(page) {
-      if (this.start_date && this.end_date && this.license_plate) {
-        this.getTripsFiltered(page);
-      } else if (this.start_date && this.end_date) {
-        this.getTripsFilteredDate(page);
-      } else if (this.license_plate) {
-        this.getTripsFilteredLicense(page);
-      } else {
-        this.getTrips(page);
-      }
-    },
-    async getTripsFilteredLicense(page) {
-      this.isLoading = true;
-      try {
-        const url =
-          "http://104.197.168.64:8080/api/trips?page=" +
-          page +
-          "&license_plate=" +
-          this.license_plate;
-        console.log("Request URL:", url); // URL'yi konsola yazdır
-
-        const response = await axios.get(url, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "X-Access-Token": this.getToken,
-          },
-        });
-
-        console.log("response data", response.data);
-        this.items = response.data.items;
-        this.totalPages = response.data.pages;
-        this.$emit("trips-success", true);
-        this.isLoading = false;
-        localStorage.setItem("error", false);
-      } catch (error) {
-        console.error("Error fetching trips:", error.response.status);
-        this.errorMessage = "Error fetching trips. Please try again.";
-        this.$emit("trips-success", false);
-        this.isLoading = false;
-        localStorage.setItem("error", true);
-      }
-    },
-    async getTripsFiltered(page) {
-      this.isLoading = true;
-      try {
-        const url =
-          "http://104.197.168.64:8080/api/trips?page=" +
-          page +
-          "&start_date=" +
-          this.start_date +
-          " 00:00" +
-          "&end_date=" +
-          this.end_date +
-          " 23:59" +
-          "&license_plate=" +
-          this.license_plate;
-        console.log("Request URL:", url); // URL'yi konsola yazdır
-
-        const response = await axios.get(url, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "X-Access-Token": this.getToken,
-          },
-        });
-
-        console.log("response data", response.data);
-        this.items = response.data.items;
-        this.totalPages = response.data.pages;
-        this.$emit("trips-success", true);
-        this.isLoading = false;
-        localStorage.setItem("error", false);
-      } catch (error) {
-        console.error("Error fetching trips:", error.response.status);
-        this.errorMessage = "Error fetching trips. Please try again.";
-        this.$emit("trips-success", false);
-        this.isLoading = false;
-        localStorage.setItem("error", true);
-      }
-    },
-
-    async getTripsFilteredDate(page) {
-      this.isLoading = true;
-      try {
-        const url =
-          "http://104.197.168.64:8080/api/trips?page=" +
-          page +
-          "&start_date=" +
-          this.start_date +
-          " 00:00" +
-          "&end_date=" +
-          this.end_date +
-          " 23:59";
-        console.log("Request URL:", url); // URL'yi konsola yazdır
-
-        const response = await axios.get(url, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "X-Access-Token": this.getToken,
-          },
-        });
-
-        console.log("response data", response.data);
-        this.items = response.data.items;
-        this.totalPages = response.data.pages;
-        this.$emit("trips-success", true);
-        this.isLoading = false;
-        localStorage.setItem("error", false);
-      } catch (error) {
-        console.error("Error fetching trips:", error.response.status);
-        this.errorMessage = "Error fetching trips. Please try again.";
-        this.$emit("trips-success", false);
-        this.isLoading = false;
-        localStorage.setItem("error", true);
       }
     },
   },
