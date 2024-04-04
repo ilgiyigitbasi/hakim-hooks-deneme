@@ -154,6 +154,7 @@ export default {
   color: #41506b;
   cursor: pointer;
   background-color: #ffffff;
+  z-index: 100;
 }
 .profile-button {
   top: 70px;

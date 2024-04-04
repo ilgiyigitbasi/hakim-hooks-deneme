@@ -15,7 +15,10 @@
 
         <div class="row-gap-8px-div">
           <h1 class="h1 reports-text" @click="navigateToReports">Reports</h1>
-          <h1 class="h1">- Vehicle History | {{ licensePlate }}</h1>
+          <h1 class="h1">
+            - Vehicle History |
+            <span class="nav-title-item"> {{ licensePlate }} </span>
+          </h1>
         </div>
       </div>
 
