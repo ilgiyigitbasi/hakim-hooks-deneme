@@ -34,8 +34,8 @@
       <p class="explanation-text">{{ formattedDateTime }}</p>
 
       <router-link
-        :to="{ path: '/reportDetail', query: { id: licensePlate } }"
-        class="license-plate-router"
+        :to="{ path: '/reportDetail', query: { id: listData.id } }"
+        class="detail-button"
       >
         <img src="../../assets/img/gotodetail.svg" alt="" />
       </router-link>
@@ -52,7 +52,10 @@
         <p class="explanation-text item-text">License Plate:</p>
 
         <router-link
-          :to="{ path: '/vehicleHistory', query: { id: licensePlate } }"
+          :to="{
+            path: '/vehicleHistory',
+            query: { id: listData.license_plate },
+          }"
         >
           <p class="explanation-text-black license-plate">
             {{ formattedLicensePlate }}
