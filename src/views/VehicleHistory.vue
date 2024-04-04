@@ -127,7 +127,8 @@ export default {
         console.log("response data" + response.data);
         this.listData = response.data.items;
         this.totalTrip = response.data.total;
-        this.totalPages = response.data.total;
+        this.totalPages = response.data.pages;
+
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
@@ -166,7 +167,11 @@ export default {
     console.log("Page value on create:", this.currentPage);
     console.log("Received ID:", this.$route.query.id);
     this.licensePlate = this.$route.query.id;
-    this.getReportDetail();
+    if (this.licensePlate) {
+      this.getReportDetail();
+    }
+    console.log("Total Pages:", this.totalPages);
+    console.log("License Plate:", this.licensePlate);
   },
 };
 </script>
