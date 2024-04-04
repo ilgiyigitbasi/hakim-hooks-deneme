@@ -16,7 +16,7 @@
     </div>
 
     <div class="list-item-dashboard">
-      <p class="explanation-text">{{ formatDateTime(listData.datetime) }}</p>
+      <p class="explanation-text">{{ formattedDateTime }}</p>
     </div>
 
     <div class="list-item-dashboard">
@@ -31,7 +31,7 @@
 
   <div class="mobile-list-item-div-dashboard">
     <div class="row-gap-space-between">
-      <p class="explanation-text">{{ listData.datetime }}</p>
+      <p class="explanation-text">{{ formattedDateTime }}</p>
 
       <router-link
         :to="{ path: '/reportDetail', query: { id: listData.id } }"
@@ -71,23 +71,15 @@ export default {
       required: true,
     },
   },
-  methods: {
-    formatDateTime(dateTime) {
-      const date = new Date(dateTime);
-      // Tarih ve saat değerlerini alıyoruz
-      const formattedDate = date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "2-digit",
-      });
-      const formattedTime = date.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      return `${formattedDate} ${formattedTime}`;
-    },
-  },
+  methods: {},
   computed: {
+    formattedDateTime() {
+      // datetime verisini al
+      const dateTime = this.listData.datetime;
+
+      // datetime verisinden sondaki 7 karakteri kırparak geri kalanını döndür
+      return dateTime.slice(0, -7);
+    },
     formattedLicensePlate() {
       // Lisans plakası verisini al
       const licensePlate = this.listData.license_plate;
