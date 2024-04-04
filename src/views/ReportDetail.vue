@@ -7,7 +7,12 @@
       <div class="row-gap-space-between">
         <div class="row-gap-8px-div">
           <h1 class="h1 reports-text" @click="navigateToReports">Reports</h1>
-          <h1 class="h1">- Report Detail</h1>
+          <h1 class="h1">
+            - Report Detail |
+            <span class="nav-title-item">
+              {{ licensePlate }} | {{ newFormattedDate }}</span
+            >
+          </h1>
         </div>
 
         <router-link
@@ -61,6 +66,7 @@ export default {
       date: "",
       requestId: "",
       uploadedImages: "",
+      newFormattedDate: "",
     };
   },
   methods: {
@@ -105,9 +111,23 @@ export default {
       // Vue Router ile /reports yoluna yönlendirme yapın
       this.$router.push("/reports");
     },
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      };
+      return date.toLocaleDateString("en-US", options);
+    },
   },
   computed: {
     ...mapGetters(["getToken"]),
+    newFormattedDate() {
+      return this.formatDate(this.date);
+    },
   },
   mounted() {
     this.getReportDetail();
