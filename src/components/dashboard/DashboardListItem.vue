@@ -11,7 +11,7 @@
     </div>
 
     <div class="list-item-dashboard">
-      <p class="explanation-text">{{ listData.datetime }}</p>
+      <p class="explanation-text">{{ formatDateTime(listData.datetime) }}</p>
     </div>
 
     <div class="list-item-dashboard">
@@ -59,6 +59,22 @@ export default {
     listData: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    formatDateTime(dateTime) {
+      const date = new Date(dateTime);
+      // Tarih ve saat değerlerini alıyoruz
+      const formattedDate = date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      });
+      const formattedTime = date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      return `${formattedDate} ${formattedTime}`;
     },
   },
 };
