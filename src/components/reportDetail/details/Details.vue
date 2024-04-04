@@ -12,13 +12,13 @@
         <div class="line"></div>
         <DetailItem :exp="uploadedImages" :title="'Brand:'" />
         <div class="line"></div>
-        <DetailItem :exp="uploadedImages" :title="'Model:'" />
+        <DetailItem :exp="'-'" :title="'Model:'" />
         <div class="line"></div>
-        <DetailItem :exp="uploadedImages" :title="'Color:'" />
+        <DetailItem :exp="'-'" :title="'Color:'" />
         <div class="line"></div>
-        <DetailItem :exp="uploadedImages" :title="'Camera Angle:'" />
+        <DetailItem :exp="'-'" :title="'Camera Angle:'" />
         <div class="line"></div>
-        <DetailItem :exp="uploadedImages" :title="'Uploaded Images:'" />
+        <DetailItem :exp="'-'" :title="'Uploaded Images:'" />
       </div>
     </div>
   </div>
