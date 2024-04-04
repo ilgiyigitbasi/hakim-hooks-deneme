@@ -1,7 +1,12 @@
 <template>
   <div class="wrapper" v-if="tripsSuccess">
     <Navbar />
-    <main><router-view /></main>
+    <div class="column-gap-24px-div">
+      <main>
+        <router-view />
+      </main>
+      <FooterVue v-show="showFooter" />
+    </div>
   </div>
   <div v-else>
     <LoginView @trips-success="updateTripsSuccess" />
@@ -14,6 +19,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import Navbar from "./components/Navbar.vue";
 import LoginView from "./views/auth/LoginView.vue";
 import ErrorScreen from "./components/ErrorScreen.vue";
+import FooterVue from "./components/Footer.vue";
 
 export default {
   components: {
@@ -21,14 +27,20 @@ export default {
     VueDatePicker,
     LoginView,
     ErrorScreen,
+    FooterVue,
   },
   data() {
     return {
       tripsSuccess: JSON.parse(localStorage.getItem("tripsSuccess")) || null,
       error: localStorage.getItem("error") === "true" || false,
+      showFooter: false, // Ekledik
     };
   },
-  created() {},
+  created() {
+    setTimeout(() => {
+      this.showFooter = true;
+    }, 1000); // 2 saniye sonra footer'ı göster
+  },
   methods: {
     updateTripsSuccess(success) {
       this.tripsSuccess = success;

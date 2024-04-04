@@ -35,23 +35,46 @@
         </div>
       </div>
 
-      <router-link to="/profile">
-        <div v-if="screenWidth > 1000 || activeLink !== 'profile'">
+      <div class="row-gap-8px-div">
+        <p class="nav-title-item">Isaac Avis User</p>
+
+        <div
+          @click="showLogoutBtn = !showLogoutBtn"
+          v-if="screenWidth > 1000 || activeLink !== 'profile'"
+        >
           <img class="profile" src="../assets/img/profile.svg" alt="" />
+          <div class="column-gap-8px-div">
+            <div
+              v-if="showLogoutBtn"
+              @click="profileClicked()"
+              class="profile-button"
+            >
+              Profile
+            </div>
+            <div
+              v-if="showLogoutBtn"
+              @click="logoutClicked()"
+              class="logout-button"
+            >
+              Log out
+            </div>
+          </div>
         </div>
         <div v-else class="empty"></div>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
       activeLink: "",
       isMenuOpen: false,
       screenWidth: window.innerWidth, // Ekran genişliğini takip edecek değişken
+      showLogoutBtn: false,
     };
   },
   methods: {
@@ -65,6 +88,20 @@ export default {
         // Ekran genişliği 1000px'in üstündeyse menüyü kapat
         this.isMenuOpen = false;
       }
+    },
+    ...mapMutations(["SET_TOKEN"]),
+
+    logoutClicked() {
+      this.SET_TOKEN(null);
+
+      localStorage.setItem("tripsSuccess", JSON.stringify(false));
+      this.$emit("trips-success", false);
+
+      this.$router.push("/");
+      window.location.reload();
+    },
+    profileClicked() {
+      this.$router.push("/profile");
     },
   },
   watch: {
@@ -83,4 +120,50 @@ export default {
 
 <style scoped>
 @import "../assets/css/styles.css";
+.profile {
+  cursor: pointer;
+}
+.logout-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: rgb(6, 10, 15, 0.1);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.logout {
+  position: relative;
+}
+.logout-button,
+.profile-button {
+  position: absolute;
+  top: 118px;
+  right: 0;
+  width: 95px;
+  height: 40px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #41506b;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+.profile-button {
+  top: 70px;
+}
+.logout-button:hover,
+.profile-button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.logout-button:active,
+.profile-button:active {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
 </style>
