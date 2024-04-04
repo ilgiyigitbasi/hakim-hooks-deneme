@@ -11,7 +11,7 @@
     </div>
 
     <div class="list-item-dashboard">
-      <p class="explanation-text">{{ listData.datetime }}</p>
+      <p class="explanation-text">{{ formattedDateTime }}</p>
     </div>
 
     <div class="list-item-dashboard">
@@ -26,7 +26,7 @@
 
   <div class="mobile-list-item-div-dashboard">
     <div class="row-gap-space-between">
-      <p class="explanation-text">{{ listData.datetime }}</p>
+      <p class="explanation-text">{{ formattedDateTime }}</p>
 
       <div class="detail-button">
         <router-link
@@ -61,6 +61,15 @@ export default {
     listData: {
       type: Array,
       required: true,
+    },
+  },
+  computed: {
+    formattedDateTime() {
+      // datetime verisini al
+      const dateTime = this.listData.datetime;
+
+      // datetime verisinden sondaki 7 karakteri kırparak geri kalanını döndür
+      return dateTime.slice(0, -7);
     },
   },
 };
