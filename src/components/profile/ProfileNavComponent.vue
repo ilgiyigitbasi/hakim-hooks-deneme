@@ -54,13 +54,8 @@ export default {
     ...mapMutations(["SET_TOKEN"]),
 
     logoutClicked() {
-      this.SET_TOKEN(null);
-
-      localStorage.setItem("tripsSuccess", JSON.stringify(false));
-      this.$emit("trips-success", false);
-
-      this.$router.push("/");
-      window.location.reload();
+      localStorage.setItem("token", null);
+      this.$router.push("/login");
     },
   },
   props: {
