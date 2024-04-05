@@ -92,7 +92,7 @@ export default {
             },
           }
         );
-        console.log("response data" + response.data);
+
         this.licensePlate = response.data.license;
         this.date = response.data.date;
         this.requestId = response.data.id;
@@ -104,19 +104,19 @@ export default {
         this.location = response.data.location;
         if (response.data.images) {
           this.imageData = response.data.images;
-          console.log("image datas:", this.imageData);
         } else {
-          console.log("No images data received from the server.");
         }
-        console.log("image datas:" + this.imageData);
+
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
-        if (error.response && error.response.status) {
-          console.error("Login failed:", error.response.status);
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
         } else {
-          console.error("An error occurred:", error.message);
+          console.error("Error fetching trips:", error);
+          this.$router.push("/error");
         }
+        this.isLoading = false;
         this.errorMessage = "An error occurred. Please try again.";
         this.isLoading = false;
         localStorage.setItem("error", true);
@@ -148,7 +148,6 @@ export default {
     this.getReportDetail();
   },
   created() {
-    console.log("Received ID:", this.$route.query.id);
     this.requestId = this.$route.query.id;
     this.getReportDetail();
   },

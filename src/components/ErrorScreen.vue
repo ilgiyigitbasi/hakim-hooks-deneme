@@ -40,8 +40,7 @@ export default {
   },
   methods: {
     retry() {
-      this.$router.go(-1); // Go back to the previous page
-      window.location.reload();
+      this.$router.go(-1);
     },
   },
 };
@@ -59,6 +58,11 @@ export default {
   justify-content: center;
   flex-direction: column;
   row-gap: 32px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .error-inside-div {
   width: 500px;

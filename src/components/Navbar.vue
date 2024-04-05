@@ -73,7 +73,7 @@ export default {
     return {
       activeLink: "",
       isMenuOpen: false,
-      screenWidth: window.innerWidth, // Ekran genişliğini takip edecek değişken
+      screenWidth: window.innerWidth,
       showLogoutBtn: false,
     };
   },
@@ -92,13 +92,8 @@ export default {
     ...mapMutations(["SET_TOKEN"]),
 
     logoutClicked() {
-      this.SET_TOKEN(null);
-
-      localStorage.setItem("tripsSuccess", JSON.stringify(false));
-      this.$emit("trips-success", false);
-
-      this.$router.push("/");
-      window.location.reload();
+      localStorage.setItem("token", null);
+      this.$router.push("/login");
     },
     profileClicked() {
       this.$router.push("/profile");
@@ -110,10 +105,10 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener("resize", this.handleResize); // Resize event listener'ını ekleyin
+    window.addEventListener("resize", this.handleResize);
   },
   beforeDestroy() {
-    window.removeEventListener("resize", this.handleResize); // Component yok edilmeden önce event listener'ını kaldır
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>

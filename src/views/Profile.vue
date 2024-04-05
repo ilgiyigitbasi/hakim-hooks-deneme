@@ -58,14 +58,19 @@ export default {
             },
           }
         );
-        console.log("response data" + response.data);
+
         this.userDetails.email = response.data.email;
         this.userDetails.name = response.data.name;
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
-        console.error("Login failed:", error.response.status);
-        this.errorMessage = "Login failed. Please try again.";
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
+        } else {
+          console.error("Error fetching trips:", error);
+          this.$router.push("/error");
+        }
+
         this.isLoading = false;
         localStorage.setItem("error", true);
       }

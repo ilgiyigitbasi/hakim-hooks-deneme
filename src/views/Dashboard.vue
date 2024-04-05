@@ -46,7 +46,6 @@ export default {
       this.$emit("trips-success", false);
     }
     this.getTrips(this.currentPage);
-    console.log("Token:", this.getToken);
   },
 
   methods: {
@@ -56,13 +55,6 @@ export default {
       this.start_date = startDate;
       this.end_date = endDate;
       this.license_plate = licensePlate;
-      console.log("Dashboard'da alınan Start Date:", this.start_date);
-      console.log("Dashboard'da alınan End Date:", this.end_date);
-      console.log("Dashboard'dan alınan License Plate:", licensePlate);
-      console.log(
-        "License Plate değeri Reports.vue dosyasında:",
-        this.license_plate
-      ); // Bu satırı ekledim
       this.getTrips(this.currentPage);
     },
 
@@ -86,7 +78,12 @@ export default {
         this.totalPages = response.data.pages;
         this.isLoading = false;
       } catch (error) {
-        console.error("Error fetching trips:", error);
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
+        } else {
+          console.error("Error fetching trips:", error);
+          this.$router.push("/error");
+        }
         this.isLoading = false;
       }
     },

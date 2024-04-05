@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" v-if="tripsSuccess">
+  <div class="wrapper">
     <Navbar />
     <div class="column-gap-24px-div">
       <main>
@@ -7,9 +7,6 @@
       </main>
       <FooterVue v-show="showFooter" />
     </div>
-  </div>
-  <div v-else>
-    <LoginView @trips-success="updateTripsSuccess" />
   </div>
 </template>
 

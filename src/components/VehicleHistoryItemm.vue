@@ -65,10 +65,7 @@ export default {
   },
   computed: {
     formattedDateTime() {
-      // datetime verisini al
       const dateTime = this.listData.datetime;
-
-      // datetime verisinden sondaki 7 karakteri kırparak geri kalanını döndür
       return dateTime.slice(0, -7);
     },
   },

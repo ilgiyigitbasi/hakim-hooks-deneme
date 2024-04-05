@@ -118,7 +118,13 @@ export default {
         this.totalPages = response.data.pages;
         this.isLoading = false;
       } catch (error) {
-        console.error("Error fetching trips:", error);
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
+        } else {
+          console.error("Error fetching trips:", error);
+          this.$router.push("/error");
+        }
+
         this.isLoading = false;
       }
     },
@@ -150,7 +156,6 @@ export default {
           " 23:59" +
           "&license_plate=" +
           this.license_plate;
-        console.log("Request URL:", url); // URL'yi konsola yazdır
 
         const response = await axios.get(url, {
           headers: {
@@ -159,16 +164,18 @@ export default {
           },
         });
 
-        console.log("response data", response.data);
         this.items = response.data.items;
         this.totalPages = response.data.pages;
         this.$emit("trips-success", true);
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
-        console.error("Error fetching trips:", error.response.status);
-        this.errorMessage = "Error fetching trips. Please try again.";
-        this.$emit("trips-success", false);
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
+        } else {
+          console.error("Error fetching trips:", error);
+        }
+        this.isLoading = false;
         this.isLoading = false;
         localStorage.setItem("error", true);
       }
@@ -186,7 +193,6 @@ export default {
           "&end_date=" +
           this.end_date +
           " 23:59";
-        console.log("Request URL:", url); // URL'yi konsola yazdır
 
         const response = await axios.get(url, {
           headers: {
@@ -195,16 +201,18 @@ export default {
           },
         });
 
-        console.log("response data", response.data);
         this.items = response.data.items;
         this.totalPages = response.data.pages;
         this.$emit("trips-success", true);
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
-        console.error("Error fetching trips:", error.response.status);
-        this.errorMessage = "Error fetching trips. Please try again.";
-        this.$emit("trips-success", false);
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
+        } else {
+          console.error("Error fetching trips:", error);
+        }
+
         this.isLoading = false;
         localStorage.setItem("error", true);
       }
@@ -217,7 +225,6 @@ export default {
           page +
           "&license_plate=" +
           this.license_plate;
-        console.log("Request URL:", url); // URL'yi konsola yazdır
 
         const response = await axios.get(url, {
           headers: {
@@ -226,16 +233,18 @@ export default {
           },
         });
 
-        console.log("response data", response.data);
         this.items = response.data.items;
         this.totalPages = response.data.pages;
         this.$emit("trips-success", true);
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
-        console.error("Error fetching trips:", error.response.status);
-        this.errorMessage = "Error fetching trips. Please try again.";
-        this.$emit("trips-success", false);
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
+        } else {
+          console.error("Error fetching trips:", error);
+        }
+
         this.isLoading = false;
         localStorage.setItem("error", true);
       }
@@ -253,7 +262,6 @@ export default {
       }
     },
     goToPage(page) {
-      console.log("Clicked page:", page);
       this.currentPage = page;
       this.getTrips(this.currentPage);
     },
@@ -266,20 +274,11 @@ export default {
       this.start_date = startDate;
       this.end_date = endDate;
       this.license_plate = licensePlate;
-      console.log("Dashboard'da alınan Start Date:", this.start_date);
-      console.log("Dashboard'da alınan End Date:", this.end_date);
-      console.log("Dashboard'dan alınan License Plate:", licensePlate);
-      console.log(
-        "License Plate değeri Reports.vue dosyasında:",
-        this.license_plate
-      ); // Bu satırı ekledim
+
       this.getMain(this.currentPage);
     },
   },
   mounted() {
-    console.log("Start Date:", this.start_date);
-    console.log("Current Page:", this.currentPage);
-    console.log("End Date:", this.end_date);
     this.getTrips(this.currentPage);
   },
 };

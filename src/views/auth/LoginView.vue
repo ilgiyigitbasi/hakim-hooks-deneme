@@ -97,9 +97,8 @@ export default {
           }
         );
 
-        console.log(response.data);
         this.setToken(response.data.token);
-        console.log("Token from Vuex:", this.getToken);
+
         localStorage.setItem("token", this.getToken);
 
         this.$emit("trips-success", true);
@@ -119,4 +118,11 @@ export default {
 
 <style scoped>
 @import "../../assets/css/styles.css";
+.auth-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 </style>

@@ -77,17 +77,11 @@ export default {
   methods: {},
   computed: {
     formattedDateTime() {
-      // datetime verisini al
       const dateTime = this.listData.datetime;
-
-      // datetime verisinden sondaki 7 karakteri kırparak geri kalanını döndür
       return dateTime.slice(0, -7);
     },
     formattedLicensePlate() {
-      // Lisans plakası verisini al
       const licensePlate = this.listData.license_plate;
-
-      // Eğer plaka verisi boşsa veya belirtilen değerlerden biriyle eşleşiyorsa "not found" döndür
       if (
         !licensePlate ||
         ["plaka bulunamadı", "Plaka bulunamadı", "Plaka Bulunamadı"].includes(
@@ -96,8 +90,6 @@ export default {
       ) {
         return "None";
       }
-
-      // Plaka verisi uygunsa aynı şekilde geri döndür
       return licensePlate;
     },
   },

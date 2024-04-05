@@ -110,7 +110,6 @@ export default {
     ...mapGetters(["getToken"]),
   },
   mounted() {
-    console.log("Page value on mount:", this.currentPage);
     this.getReportDetail(this.currentPage);
   },
   methods: {
@@ -129,7 +128,7 @@ export default {
             },
           }
         );
-        console.log("response data" + response.data);
+
         this.listData = response.data.items;
         this.totalTrip = response.data.total;
         this.totalPages = response.data.pages;
@@ -137,11 +136,13 @@ export default {
         this.isLoading = false;
         localStorage.setItem("error", false);
       } catch (error) {
-        if (error.response && error.response.status) {
-          console.error("Login failed:", error.response.status);
+        if (error.response && error.response.status === 401) {
+          this.$router.push("/login");
         } else {
-          console.error("An error occurred:", error.message);
+          console.error("Error fetching trips:", error);
+          this.$router.push("/error");
         }
+        this.isLoading = false;
         this.errorMessage = "An error occurred. Please try again.";
         this.isLoading = false;
         localStorage.setItem("error", true);
@@ -169,14 +170,10 @@ export default {
     },
   },
   created() {
-    console.log("Page value on create:", this.currentPage);
-    console.log("Received ID:", this.$route.query.id);
     this.licensePlate = this.$route.query.id;
     if (this.licensePlate) {
       this.getReportDetail();
     }
-    console.log("Total Pages:", this.totalPages);
-    console.log("License Plate:", this.licensePlate);
   },
 };
 </script>

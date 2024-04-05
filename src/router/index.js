@@ -27,6 +27,16 @@ const routes = [
     name: "vehicleHistory",
     component: () => import("../views/VehicleHistory.vue"),
   },
+  {
+    path: "/login",
+    name: "vehicleHistory",
+    component: () => LoginView,
+  },
+  {
+    path: "/error",
+    name: "error",
+    component: () => import("../components/ErrorScreen.vue"),
+  },
 ];
 
 const router = createRouter({
