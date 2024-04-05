@@ -150,7 +150,7 @@ export default {
       this.isLoading = true;
       try {
         const url =
-          "http://104.197.168.64:8080/api/trips?page=" +
+          "http://104.197.168.64:8080/api/trips?limit=10&page=" +
           page +
           "&start_date=" +
           this.start_date +
@@ -189,7 +189,7 @@ export default {
       this.isLoading = true;
       try {
         const url =
-          "http://104.197.168.64:8080/api/trips?page=" +
+          "http://104.197.168.64:8080/api/trips?limit=10&page=" +
           page +
           "&start_date=" +
           this.start_date +
@@ -225,7 +225,7 @@ export default {
       this.isLoading = true;
       try {
         const url =
-          "http://104.197.168.64:8080/api/trips?page=" +
+          "http://104.197.168.64:8080/api/trips?limit=10&page=" +
           page +
           "&license_plate=" +
           this.license_plate;
