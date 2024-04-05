@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: "/login",
-    name: "vehicleHistory",
+    name: "login",
     component: () => LoginView,
   },
   {
