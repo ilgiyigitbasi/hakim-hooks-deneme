@@ -256,18 +256,18 @@ export default {
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
-        this.getTrips(this.currentPage);
+        this.getMain(this.currentPage);
       }
     },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
-        this.getTrips(this.currentPage);
+        this.getMain(this.currentPage);
       }
     },
     goToPage(page) {
       this.currentPage = page;
-      this.getTrips(this.currentPage);
+      this.getMain(this.currentPage);
     },
     togglePopup() {
       this.showPopup = !this.showPopup;

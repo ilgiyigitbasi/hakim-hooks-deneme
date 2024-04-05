@@ -51,8 +51,8 @@
                 v-model="date"
                 :enable-time-picker="false"
                 range
-                selectText="Uygula"
-                cancelText="Vazgeç"
+                selectText="Apply"
+                cancelText="Cancel"
                 locale="tr"
                 style="
                   --dp-background-color: #f1f1f4;
