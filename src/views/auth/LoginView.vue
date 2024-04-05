@@ -84,8 +84,8 @@ export default {
       }
       try {
         const formData = new FormData();
-        formData.append("email", "avis@skann.com");
-        formData.append("password", "6nJ7vQ38W47t");
+        formData.append("email", this.email);
+        formData.append("password", this.password);
 
         const response = await axios.post(
           "http://104.197.168.64:8080/api/login",

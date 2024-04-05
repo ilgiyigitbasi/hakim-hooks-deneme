@@ -1512,7 +1512,7 @@ input::placeholder {
   font-size: 13px;
   cursor: pointer;
 }
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   .horizontal-exp {
     width: 100px;
   }

@@ -70,7 +70,7 @@ p {
   padding-bottom: 32px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
   .wrapper {
     padding-left: 24px;
     padding-right: 24px;
