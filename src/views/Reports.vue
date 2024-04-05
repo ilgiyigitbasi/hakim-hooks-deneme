@@ -92,8 +92,8 @@ export default {
       currentPage: 1,
       totalPages: 0,
       isLoading: false,
-      start_date: localStorage.getItem("startDate") || null,
-      end_date: localStorage.getItem("endDate") || null,
+      start_date: null,
+      end_date: null,
       license_plate: null,
     };
   },
@@ -133,12 +133,16 @@ export default {
         page = 1; // Eğer page tanımsızsa veya boşsa, 1 olarak atıyoruz.
       }
       if (this.start_date && this.end_date && this.license_plate) {
+        console.log("buraya girdi tüm filtreler");
         this.getTripsFiltered(page);
       } else if (this.start_date && this.end_date && !this.license_plate) {
+        console.log("buraya girdi sadece date");
         this.getTripsFilteredDate(page);
-      } else if ((this.license_plate && !this.start_date) || !this.end_date) {
+      } else if (this.license_plate && (!this.start_date || !this.end_date)) {
+        console.log("buraya girdi sadece license plate");
         this.getTripsFilteredLicense(page);
       } else {
+        console.log("buraya girdi filtresiz");
         this.getTrips(page);
       }
     },
@@ -279,7 +283,7 @@ export default {
     },
   },
   mounted() {
-    this.getTrips(this.currentPage);
+    this.getMain(this.currentPage);
   },
 };
 </script>

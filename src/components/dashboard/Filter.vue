@@ -158,8 +158,6 @@ export default {
           endDate: formattedEndDate,
           licensePlate: this.licensePlate, // localStorage'dan alınan değeri gönder
         });
-        localStorage.setItem("startDate", startDate),
-          localStorage.setItem("endDate", endDate);
 
         this.startDate = formattedStartDate;
         this.endDate = formattedEndDate;
