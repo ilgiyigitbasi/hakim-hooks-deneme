@@ -93,7 +93,6 @@ export default {
 
     logoutClicked() {
       localStorage.setItem("token", null);
-      this.$router.push("/login");
     },
     profileClicked() {
       this.$router.push("/profile");

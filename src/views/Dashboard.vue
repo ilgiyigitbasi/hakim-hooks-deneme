@@ -82,7 +82,7 @@ export default {
           this.$router.push("/login");
         } else {
           console.error("Error fetching trips:", error);
-          this.$router.push("/error");
+          this.$router.push("/login");
         }
         this.isLoading = false;
       }
