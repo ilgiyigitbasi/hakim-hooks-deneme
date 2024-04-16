@@ -28,8 +28,6 @@ export default {
   },
   data() {
     return {
-      tripsSuccess: JSON.parse(localStorage.getItem("tripsSuccess")) || null,
-      error: localStorage.getItem("error") === "true" || false,
       showFooter: false, // Ekledik
     };
   },
@@ -38,12 +36,7 @@ export default {
       this.showFooter = true;
     }, 1000); // 2 saniye sonra footer'ı göster
   },
-  methods: {
-    updateTripsSuccess(success) {
-      this.tripsSuccess = success;
-      localStorage.setItem("tripsSuccess", JSON.stringify(success));
-    },
-  },
+  methods: {},
 };
 </script>
 

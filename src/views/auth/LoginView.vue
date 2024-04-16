@@ -99,9 +99,7 @@ export default {
 
         this.setToken(response.data.token);
 
-        localStorage.setItem("token", this.getToken);
-
-        this.$emit("trips-success", true);
+        localStorage.setItem("token", response.data.token);
         localStorage.setItem("error", false);
         this.$router.push("/");
       } catch (error) {

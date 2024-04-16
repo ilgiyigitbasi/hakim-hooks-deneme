@@ -29,11 +29,11 @@ export default {
       end_date: null,
       license_plate: null,
       currentPage: 1,
+      token: localStorage.getItem("token") || null,
     };
   },
 
   computed: {
-    ...mapGetters(["getToken"]),
     videoSource() {
       return this.isSmallScreen ? mobilvideo : isaacvideo;
     },
@@ -69,7 +69,7 @@ export default {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              "X-Access-Token": this.getToken,
+              "X-Access-Token": this.token,
             },
           }
         );
@@ -82,7 +82,7 @@ export default {
           this.$router.push("/login");
         } else {
           console.error("Error fetching trips:", error);
-          this.$router.push("/login");
+          this.$router.push("/error");
         }
         this.isLoading = false;
       }

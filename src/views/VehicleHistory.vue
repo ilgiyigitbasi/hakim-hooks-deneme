@@ -104,6 +104,7 @@ export default {
       currentPage: 1,
       totalPages: 0,
       brand: "",
+      token: localStorage.getItem("token") || null,
     };
   },
   computed: {
@@ -124,7 +125,7 @@ export default {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              "X-Access-Token": this.getToken,
+              "X-Access-Token": this.token,
             },
           }
         );

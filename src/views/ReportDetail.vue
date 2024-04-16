@@ -77,6 +77,7 @@ export default {
       carType: "",
       color: "",
       location: "",
+      token: localStorage.getItem("token") || null,
     };
   },
   methods: {
@@ -88,7 +89,7 @@ export default {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              "X-Access-Token": this.getToken,
+              "X-Access-Token": this.token,
             },
           }
         );

@@ -39,6 +39,7 @@ export default {
         email: "",
         name: "",
       },
+      token: localStorage.getItem("token") || null,
     };
   },
 
@@ -54,7 +55,7 @@ export default {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              "X-Access-Token": this.getToken,
+              "X-Access-Token": this.token,
             },
           }
         );

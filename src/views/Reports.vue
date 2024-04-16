@@ -95,6 +95,7 @@ export default {
       start_date: null,
       end_date: null,
       license_plate: null,
+      token: localStorage.getItem("token") || null,
     };
   },
   computed: {
@@ -109,7 +110,7 @@ export default {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              "X-Access-Token": this.getToken,
+              "X-Access-Token": this.token,
             },
           }
         );
@@ -164,7 +165,7 @@ export default {
         const response = await axios.get(url, {
           headers: {
             "Content-Type": "multipart/form-data",
-            "X-Access-Token": this.getToken,
+            "X-Access-Token": this.token,
           },
         });
 
@@ -201,7 +202,7 @@ export default {
         const response = await axios.get(url, {
           headers: {
             "Content-Type": "multipart/form-data",
-            "X-Access-Token": this.getToken,
+            "X-Access-Token": this.token,
           },
         });
 
@@ -233,7 +234,7 @@ export default {
         const response = await axios.get(url, {
           headers: {
             "Content-Type": "multipart/form-data",
-            "X-Access-Token": this.getToken,
+            "X-Access-Token": this.token,
           },
         });
 

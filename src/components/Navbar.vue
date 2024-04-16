@@ -83,9 +83,8 @@ export default {
     },
 
     handleResize() {
-      this.screenWidth = window.innerWidth; // Ekran genişliğini güncelle
+      this.screenWidth = window.innerWidth;
       if (this.screenWidth > 1000) {
-        // Ekran genişliği 1000px'in üstündeyse menüyü kapat
         this.isMenuOpen = false;
       }
     },
@@ -93,6 +92,7 @@ export default {
 
     logoutClicked() {
       localStorage.setItem("token", null);
+      this.$router.push("/login");
     },
     profileClicked() {
       this.$router.push("/profile");
