@@ -9,7 +9,7 @@
         <HorizontalItem
           style="width: 120px"
           :title="'Brand:'"
-          :explanation="'N/A'"
+          :explanation="brand"
         />
       </div>
 
@@ -30,6 +30,9 @@ export default {
       type: String,
     },
     totalTrip: {
+      type: String,
+    },
+    brand: {
       type: String,
     },
   },

@@ -8,6 +8,7 @@
 
 <style scoped>
 .loader-container {
+   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,6 +17,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+ 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f1f1f4;
 }
 .gif {
   width: 120px;

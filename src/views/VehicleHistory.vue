@@ -133,6 +133,7 @@ export default {
         this.listData = response.data.items;
         this.totalTrip = response.data.total;
         this.totalPages = response.data.pages;
+        this.brand = response.data.items[0].brand;
 
         this.isLoading = false;
         localStorage.setItem("error", false);

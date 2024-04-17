@@ -30,7 +30,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => LoginView,
+    component: LoginView,
   },
   {
     path: "/error",
@@ -44,6 +44,20 @@ const router = createRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem("token");
+  if (!isAuthenticated) {
+    // Eğer kimlik doğrulanmamışsa ve hedef rotası giriş yapma sayfası değilse, giriş sayfasına yönlendir.
+    if (to.name !== "login") {
+      next({ name: "login" });
+    } else {
+      next(); // Giriş sayfasına zaten yönlendiriliyorsa, devam et.
+    }
+  } else {
+    // Kimlik doğrulanmışsa, hedef rotaya yönlendir.
+    next();
+  }
+});
 router.afterEach((to, from) => {
   window.scrollTo(0, 0);
 });

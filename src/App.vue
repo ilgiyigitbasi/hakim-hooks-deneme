@@ -29,9 +29,12 @@ export default {
   data() {
     return {
       showFooter: false, // Ekledik
+      
     };
   },
   created() {
+
+
     setTimeout(() => {
       this.showFooter = true;
     }, 1000); // 2 saniye sonra footer'ı göster

@@ -1,4 +1,5 @@
 <template>
+
   <div class="auth-div">
     <div
       style="
@@ -64,12 +65,14 @@ export default {
   components: {
     ButtonComponent,
     InputComponent,
+    
   },
   data() {
     return {
       email: "",
       password: "",
       errorMessage: "",
+      isLoading: true,
     };
   },
   computed: {
@@ -111,6 +114,14 @@ export default {
       }
     },
   },
+  created: async function() {
+  await new Promise(resolve => {
+    setTimeout(() => {
+      this.isLoading = false;
+      resolve();
+    }, 1000);
+  });
+},
 };
 </script>
 

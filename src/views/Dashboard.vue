@@ -13,11 +13,13 @@
 import DashboardList from "@/components/dashboard/DashboardList.vue";
 import { mapGetters } from "vuex";
 import axios from "axios";
+
 const isaacvideo = require("@/assets/img/isaac-web.gif");
 const mobilvideo = require("@/assets/img/isaac-mobil.gif");
 export default {
   components: {
     DashboardList,
+   
   },
 
   data() {
@@ -78,6 +80,7 @@ export default {
         this.totalPages = response.data.pages;
         this.isLoading = false;
       } catch (error) {
+        this.isLoading = true;
         if (error.response && error.response.status === 401) {
           this.$router.push("/login");
         } else {
